@@ -52,6 +52,7 @@ The app runs on port 5000 with hot module reloading:
 ### Configuration
 - **Port**: 5000 (configured for Replit webview)
 - **Host**: 0.0.0.0 (allows Replit proxy access)
+- **Allowed Hosts**: true (required for Replit's dynamic proxy URLs)
 - **HMR**: Configured for port 5000
 
 ## Technology Stack
@@ -83,10 +84,11 @@ The app runs on port 5000 with hot module reloading:
 ## Recent Changes
 - **2025-11-16**: Initial Replit environment setup
   - Configured Vite for port 5000 with 0.0.0.0 host
-  - Added TypeScript configuration
-  - Created Tailwind and PostCSS configs
-  - Set up development workflow
-  - Added .gitignore for Node.js project
+  - Added `allowedHosts: true` to allow Replit's dynamic proxy URLs
+  - Configured Tailwind CSS v4 with `@tailwindcss/postcss`
+  - Added TypeScript configuration with React JSX support
+  - Set up development workflow and deployment configuration
+  - Added .gitignore and project documentation
 
 ## Deployment
 Configured for Replit autoscale deployment:
