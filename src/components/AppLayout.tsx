@@ -78,9 +78,10 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
                 onClick={() => onNavigate(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm ${
                   isActive
-                    ? 'bg-[#eaeaea] text-neutral-600'
+                    ? 'text-neutral-600'
                     : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
                 }`}
+                style={isActive ? { backgroundColor: 'var(--nav-active)' } : {}}
               >
                 <Icon className="w-4 h-4" />
                 <span>{item.label}</span>
