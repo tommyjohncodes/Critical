@@ -1,5 +1,4 @@
-import { motion } from "motion/react";
-import { BarChart3, TrendingUp, Award, Clock, Target, Calendar, ChevronRight, ChevronDown, RefreshCw, CheckCircle, AlertCircle, Play, Search } from "lucide-react";
+import { TrendingUp, ChevronRight, ChevronDown, RefreshCw, CheckCircle, AlertCircle, Play, Search, Target } from "lucide-react";
 import { useState } from "react";
 
 interface AnalyticsProps {

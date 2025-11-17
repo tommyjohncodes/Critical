@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { 
   LayoutDashboard, 
   BarChart3, 

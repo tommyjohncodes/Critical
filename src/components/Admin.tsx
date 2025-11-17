@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { Users, BookOpen, TrendingUp, BarChart2, Plus, Search, MoreVertical } from "lucide-react";
 
 export function Admin() {

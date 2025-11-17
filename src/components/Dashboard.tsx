@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { TrendingUp, Clock, Target, Award, Play, ChevronRight } from "lucide-react";
 
 interface DashboardProps {

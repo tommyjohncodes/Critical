@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { X, Save, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 

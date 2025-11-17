@@ -1,5 +1,4 @@
-import { motion } from "motion/react";
-import { User, Bell, Lock, Palette, Globe, Shield, Mail } from "lucide-react";
+import { User, Bell, Lock, Palette, Shield } from "lucide-react";
 
 export function Settings() {
   const settingsSections = [

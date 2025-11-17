@@ -1,5 +1,4 @@
-import { motion } from "motion/react";
-import { Search, Filter, Play, ChevronRight, Plus, Edit, Trash2 } from "lucide-react";
+import { Search, Filter, Play, ChevronRight, Plus, Edit } from "lucide-react";
 import { useState } from "react";
 import { SimulationBuilder } from "./SimulationBuilder";
 

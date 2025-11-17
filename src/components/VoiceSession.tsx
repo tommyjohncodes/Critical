@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "motion/react";
 import { Pause, Play, RotateCcw, X, Mic, MicOff, Volume2 } from "lucide-react";
 import { useState, useEffect } from "react";
 
