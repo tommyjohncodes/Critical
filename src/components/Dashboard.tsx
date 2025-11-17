@@ -11,9 +11,7 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
   return (
     <div className="p-8 max-w-7xl mx-auto">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="mb-8"
       >
         <h1 className="text-2xl font-semibold text-neutral-900 mb-1">
@@ -24,16 +22,14 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
             ? 'Monitor team progress and simulation completion' 
             : 'Your assigned training simulations'}
         </p>
-      </motion.div>
+      </div>
 
       {userRole === 'user' ? (
         /* USER VIEW - Assigned Simulations */
         <>
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+            <div
               className="bg-white rounded-lg p-5 border border-neutral-200"
             >
               <div className="flex items-start justify-between mb-4">
@@ -43,12 +39,9 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
               </div>
               <p className="text-2xl font-semibold text-neutral-900 mb-0.5">12</p>
               <p className="text-sm text-neutral-500">Assigned</p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 }}
+            <div
               className="bg-white rounded-lg p-5 border border-neutral-200"
             >
               <div className="flex items-start justify-between mb-4">
@@ -58,12 +51,9 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
               </div>
               <p className="text-2xl font-semibold text-neutral-900 mb-0.5">8</p>
               <p className="text-sm text-neutral-500">Completed</p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+            <div
               className="bg-white rounded-lg p-5 border border-neutral-200"
             >
               <div className="flex items-start justify-between mb-4">
@@ -73,12 +63,9 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
               </div>
               <p className="text-2xl font-semibold text-neutral-900 mb-0.5">4</p>
               <p className="text-sm text-neutral-500">Not Started</p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 }}
+            <div
               className="bg-white rounded-lg p-5 border border-neutral-200"
             >
               <div className="flex items-start justify-between mb-4">
@@ -88,13 +75,11 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
               </div>
               <p className="text-2xl font-semibold text-neutral-900 mb-0.5">84%</p>
               <p className="text-sm text-neutral-500">Completion Rate</p>
-            </motion.div>
+            </div>
           </div>
 
           {/* Assigned Simulations List */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div
             className="bg-white rounded-lg p-6 border border-neutral-200"
           >
             <div className="flex items-center justify-between mb-5">
@@ -116,9 +101,8 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
                 { id: 5, title: 'Cardiac Arrest Response', industry: 'Emergency', status: 'completed', score: 88, dueDate: 'Completed 1 week ago' },
                 { id: 6, title: 'Performance Review Discussion', industry: 'HR', status: 'not-started', score: null, dueDate: 'Due in 7 days' },
               ].map((sim) => (
-                <motion.div
+                <div
                   key={sim.id}
-                  whileHover={{ x: 2 }}
                   className="flex items-center justify-between p-4 rounded-md border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all cursor-pointer"
                   onClick={() => sim.status !== 'not-started' ? onNavigate('session', sim.id.toString()) : onNavigate('sims')}
                 >
@@ -149,19 +133,17 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
                     )}
                     <ChevronRight className="w-4 h-4 text-neutral-400" />
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </>
       ) : (
         /* ADMIN VIEW - Employee Progress */
         <>
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+            <div
               className="bg-white rounded-lg p-5 border border-neutral-200"
             >
               <div className="flex items-start justify-between mb-4">
@@ -171,12 +153,9 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
               </div>
               <p className="text-2xl font-semibold text-neutral-900 mb-0.5">48</p>
               <p className="text-sm text-neutral-500">Total Employees</p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 }}
+            <div
               className="bg-white rounded-lg p-5 border border-neutral-200"
             >
               <div className="flex items-start justify-between mb-4">
@@ -186,12 +165,9 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
               </div>
               <p className="text-2xl font-semibold text-neutral-900 mb-0.5">35</p>
               <p className="text-sm text-neutral-500">On Track</p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+            <div
               className="bg-white rounded-lg p-5 border border-neutral-200"
             >
               <div className="flex items-start justify-between mb-4">
@@ -201,12 +177,9 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
               </div>
               <p className="text-2xl font-semibold text-neutral-900 mb-0.5">13</p>
               <p className="text-sm text-neutral-500">Behind Schedule</p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 }}
+            <div
               className="bg-white rounded-lg p-5 border border-neutral-200"
             >
               <div className="flex items-start justify-between mb-4">
@@ -216,13 +189,11 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
               </div>
               <p className="text-2xl font-semibold text-neutral-900 mb-0.5">84%</p>
               <p className="text-sm text-neutral-500">Completion Rate</p>
-            </motion.div>
+            </div>
           </div>
 
           {/* Employee Progress List */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div
             className="bg-white rounded-lg p-6 border border-neutral-200"
           >
             <div className="flex items-center justify-between mb-5">
@@ -244,9 +215,8 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
                 { id: 5, name: 'Jessica Williams', department: 'Call Center', assigned: 12, completed: 5, avgScore: 79, status: 'behind' },
                 { id: 6, name: 'Robert Taylor', department: 'HR', assigned: 10, completed: 10, avgScore: 91, status: 'on-track' },
               ].map((employee) => (
-                <motion.div
+                <div
                   key={employee.id}
-                  whileHover={{ x: 2 }}
                   className="flex items-center justify-between p-4 rounded-md border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all cursor-pointer"
                 >
                   <div className="flex items-center gap-3.5 flex-1 min-w-0">
@@ -277,10 +247,10 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
                     </div>
                     <ChevronRight className="w-4 h-4 text-neutral-400" />
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </>
       )}
     </div>

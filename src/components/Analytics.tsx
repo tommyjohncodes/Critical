@@ -136,19 +136,15 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
   if (userRole === 'user') {
     return (
       <div className="p-8 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <div
           className="mb-6"
         >
           <h1 className="text-2xl text-neutral-900 mb-2">My Results</h1>
           <p className="text-sm text-neutral-600">Review your completed simulations and feedback</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div
             className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
           >
             <div className="flex items-center gap-3">
@@ -160,12 +156,9 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                 <p className="text-sm text-neutral-500">Completed</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+          <div
             className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
           >
             <div className="flex items-center gap-3">
@@ -177,12 +170,9 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                 <p className="text-sm text-neutral-500">Avg Score</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+          <div
             className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
           >
             <div className="flex items-center gap-3">
@@ -194,13 +184,10 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                 <p className="text-sm text-neutral-500">Need Retry</p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+        <div
           className="bg-white rounded-md border border-neutral-200 overflow-hidden"
         >
           <div className="grid grid-cols-12 gap-3 px-5 py-3 bg-neutral-50 border-b border-neutral-200 text-xs text-neutral-600">
@@ -213,20 +200,14 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
           <div className="divide-y divide-neutral-100">
             {completedSims.map((sim, index) => (
               <div key={sim.id}>
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
+                <div
                   className="grid grid-cols-12 gap-3 px-5 py-3 items-center transition-colors cursor-pointer hover:bg-neutral-50"
                   onClick={() => toggleRow(sim.id)}
                 >
                   <div className="col-span-6 flex items-center gap-2">
-                    <motion.div
-                      animate={{ rotate: expandedRow === sim.id ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <div>
                       <ChevronDown className="w-4 h-4 text-neutral-400" />
-                    </motion.div>
+                    </div>
                     <h3 className="text-sm text-neutral-900">{sim.title}</h3>
                   </div>
 
@@ -246,14 +227,10 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                       {sim.score}%
                     </span>
                   </div>
-                </motion.div>
+                </div>
 
                 {expandedRow === sim.id && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                  <div
                     className="border-t border-neutral-100 bg-neutral-50/50"
                   >
                     <div className="px-5 py-5">
@@ -316,12 +293,12 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                         )}
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     );
   }
@@ -446,19 +423,15 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="mb-6"
       >
         <h1 className="text-2xl text-neutral-900 mb-2">Team Analytics</h1>
         <p className="text-sm text-neutral-600">Monitor employee performance and platform usage</p>
-      </motion.div>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <div
           className="bg-neutral-900 rounded-md p-5 text-white"
         >
           <div className="flex items-center justify-between mb-2">
@@ -467,12 +440,9 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
           </div>
           <p className="text-3xl mb-1">{avgTeamScore}%</p>
           <p className="text-neutral-400 text-sm">Average Score</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05 }}
+        <div
           className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
         >
           <div className="flex items-center gap-3">
@@ -484,12 +454,9 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
               <p className="text-sm text-neutral-500">Total Completions</p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
+        <div
           className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
         >
           <div className="flex items-center gap-3">
@@ -501,12 +468,9 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
               <p className="text-sm text-neutral-500">Active Users</p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
+        <div
           className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
         >
           <div className="flex items-center gap-3">
@@ -518,13 +482,10 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
               <p className="text-sm text-neutral-500">Need Attention</p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+      <div
         className="bg-white rounded-md p-4 border border-neutral-200 mb-4"
       >
         <div className="flex items-center gap-3">
@@ -549,12 +510,9 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
             <option>All Time</option>
           </select>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.25 }}
+      <div
         className="bg-white rounded-md border border-neutral-200 overflow-hidden"
       >
         <div className="grid grid-cols-12 gap-3 px-5 py-3 bg-neutral-50 border-b border-neutral-200 text-xs text-neutral-600">
@@ -568,20 +526,14 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
         <div className="divide-y divide-neutral-100">
           {employees.map((employee, index) => (
             <div key={employee.id}>
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
+              <div
                 className="grid grid-cols-12 gap-3 px-5 py-3 items-center transition-colors cursor-pointer hover:bg-neutral-50"
                 onClick={() => toggleRow(employee.id)}
               >
                 <div className="col-span-4 flex items-center gap-2">
-                  <motion.div
-                    animate={{ rotate: expandedRow === employee.id ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <div>
                     <ChevronDown className="w-4 h-4 text-neutral-400" />
-                  </motion.div>
+                  </div>
                   <div className="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center text-white text-sm flex-shrink-0">
                     {employee.name.split(' ').map(n => n[0]).join('')}
                   </div>
@@ -613,14 +565,10 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                 <div className="col-span-2 flex justify-end">
                   {getStatusBadge(employee.status, employee.trend)}
                 </div>
-              </motion.div>
+              </div>
 
               {expandedRow === employee.id && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div
                   className="border-t border-neutral-100 bg-neutral-50/50"
                 >
                   <div className="px-5 py-4">
@@ -650,12 +598,12 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                       )}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

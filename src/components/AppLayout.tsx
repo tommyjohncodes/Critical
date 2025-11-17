@@ -41,9 +41,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
   return (
     <div className="min-h-screen bg-white flex">
       {/* Sidebar */}
-      <motion.aside
-        initial={{ x: -280 }}
-        animate={{ x: 0 }}
+      <aside
         className="w-64 bg-neutral-50 border-r border-neutral-200 flex flex-col fixed h-screen z-40"
       >
         {/* Logo with Admin Badge */}
@@ -58,16 +56,14 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
             </div>
           </div>
           {isAdmin && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
+            <div
               className="mt-3 px-2.5 py-1.5 bg-neutral-200 border border-neutral-300 rounded-md"
             >
               <p className="text-xs text-neutral-700 flex items-center gap-1.5">
                 <Shield className="w-3 h-3" />
                 Admin Mode
               </p>
-            </motion.div>
+            </div>
           )}
         </div>
 
@@ -78,11 +74,9 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
             const isActive = activePage === item.id;
             
             return (
-              <motion.button
+              <button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
-                whileHover={{ x: 2 }}
-                whileTap={{ scale: 0.98 }}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm ${
                   isActive
                     ? 'bg-neutral-900 text-white'
@@ -94,7 +88,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
                 {item.id === 'admin' && isAdmin && (
                   <Shield className="w-3 h-3 ml-auto opacity-60" />
                 )}
-              </motion.button>
+              </button>
             );
           })}
         </nav>
@@ -103,10 +97,8 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
         <div className="p-3 border-t border-neutral-200">
           {/* Role Toggle (Development Only) */}
           {onRoleToggle && (
-            <motion.button
+            <button
               onClick={onRoleToggle}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.98 }}
               className="w-full flex items-center justify-between px-3 py-2 mb-2 rounded-md transition-all text-sm bg-neutral-200 border border-neutral-300 text-neutral-700 hover:bg-neutral-300"
             >
               <span className="flex items-center gap-2 text-xs">
@@ -114,7 +106,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
                 {isAdmin ? 'Switch to User' : 'Switch to Admin'}
               </span>
               <span className="text-[10px] opacity-60">DEV</span>
-            </motion.button>
+            </button>
           )}
           
           <div className="flex items-center gap-3 px-3 py-2.5 mb-1.5 rounded-md bg-neutral-100">
@@ -126,17 +118,15 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
               <p className="text-[11px] text-neutral-500 truncate">john@company.com</p>
             </div>
           </div>
-          <motion.button
+          <button
             onClick={onLogout}
-            whileHover={{ x: 2 }}
-            whileTap={{ scale: 0.98 }}
             className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md text-neutral-600 hover:bg-red-50 hover:text-red-600 transition-all text-sm"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>
-          </motion.button>
+          </button>
         </div>
-      </motion.aside>
+      </aside>
 
       {/* Main content */}
       <main className="flex-1 ml-64 bg-white">

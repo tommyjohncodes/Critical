@@ -28,35 +28,28 @@ export function Admin() {
   return (
     <div className="p-8 max-w-7xl mx-auto">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="flex items-center justify-between mb-8"
       >
         <div>
           <h1 className="text-2xl text-neutral-900 mb-2">Admin Panel</h1>
           <p className="text-neutral-600">Manage users, track progress, and view organization-wide reports</p>
         </div>
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+        <button
           className="px-6 py-3 bg-neutral-900 text-white rounded-md shadow-sm hover:bg-neutral-800 transition-all flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
           Add User
-        </motion.button>
-      </motion.div>
+        </button>
+      </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {teamStats.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <motion.div
+            <div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
               className="bg-white rounded-lg p-6 border border-neutral-200 shadow-sm hover:shadow-md transition-all"
             >
               <div className="flex items-start justify-between mb-4">
@@ -69,16 +62,14 @@ export function Admin() {
               </div>
               <p className="text-2xl text-neutral-900 mb-1">{stat.value}</p>
               <p className="text-sm text-neutral-500">{stat.label}</p>
-            </motion.div>
+            </div>
           );
         })}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
         {/* User Management */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+        <div
           className="lg:col-span-2 bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden"
         >
           <div className="p-6 border-b border-neutral-200">
@@ -109,11 +100,8 @@ export function Admin() {
               </thead>
               <tbody className="divide-y divide-neutral-200">
                 {users.map((user, index) => (
-                  <motion.tr
+                  <tr
                     key={user.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
                     className="hover:bg-neutral-50 transition-colors"
                   >
                     <td className="px-6 py-4">
@@ -149,17 +137,15 @@ export function Admin() {
                         <MoreVertical className="w-4 h-4" />
                       </button>
                     </td>
-                  </motion.tr>
+                  </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </motion.div>
+        </div>
 
         {/* Department Stats */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
+        <div
           className="bg-white rounded-lg p-6 border border-neutral-200 shadow-sm"
         >
           <h2 className="text-xl text-neutral-900 mb-1">Department Performance</h2>
@@ -167,11 +153,8 @@ export function Admin() {
 
           <div className="space-y-4">
             {departments.map((dept, index) => (
-              <motion.div
+              <div
                 key={dept.name}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
                 className="p-4 rounded-md border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all"
               >
                 <div className="flex items-center justify-between mb-3">
@@ -194,16 +177,14 @@ export function Admin() {
                     <span className="text-neutral-900">{dept.completionRate}%</span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Training Assignments */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="bg-neutral-900 rounded-lg p-6 text-white shadow-sm"
       >
         <div className="flex items-center justify-between mb-6">
@@ -211,14 +192,12 @@ export function Admin() {
             <h2 className="text-xl mb-1">Assign Training Modules</h2>
             <p className="text-neutral-300 text-sm">Create custom training plans for teams or individuals</p>
           </div>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
             className="px-6 py-3 bg-white text-neutral-900 rounded-md shadow-sm hover:bg-neutral-100 transition-all flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             New Assignment
-          </motion.button>
+          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -235,7 +214,7 @@ export function Admin() {
             <p className="text-2xl">24</p>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

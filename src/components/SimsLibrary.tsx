@@ -66,19 +66,15 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
   return (
     <div className="p-8 max-w-7xl mx-auto">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="mb-6"
       >
         <h1 className="text-2xl text-neutral-900 mb-2">Simulation Library</h1>
         <p className="text-neutral-600">Browse and run AI-powered conversation simulations</p>
-      </motion.div>
+      </div>
 
       {/* Filters */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="bg-white rounded-md p-4 border border-neutral-200 shadow-sm mb-4"
       >
         <div className="flex flex-col lg:flex-row gap-3">
@@ -110,13 +106,10 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
             </select>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Compact Table */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+      <div
         className="bg-white rounded-md border border-neutral-200 shadow-sm overflow-hidden"
       >
         {/* Table Header */}
@@ -131,20 +124,14 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
         {/* Table Body */}
         <div className="divide-y divide-neutral-100">
           {filteredSims.map((sim, index) => (
-            <motion.div
+            <div
               key={sim.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ backgroundColor: 'rgba(245, 245, 245, 0.5)' }}
               className="grid grid-cols-12 gap-3 px-4 py-3 items-center transition-colors cursor-pointer"
               onClick={() => onRunSimulation(sim.id)}
             >
               {/* Simulation Title + Status */}
               <div className="col-span-5 flex items-center gap-2.5 min-w-0">
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     onRunSimulation(sim.id);
@@ -152,7 +139,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
                   className="w-8 h-8 rounded-md bg-neutral-900 text-white flex items-center justify-center shadow-sm hover:shadow-md transition-all flex-shrink-0"
                 >
                   <Play className="w-3.5 h-3.5" />
-                </motion.button>
+                </button>
                 <div className="flex items-center gap-1.5 min-w-0 flex-1">
                   <h3 className="text-sm text-neutral-900 truncate">{sim.title}</h3>
                   <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-xs flex-shrink-0 ${getStatusColor(sim.status)}`}>
@@ -186,9 +173,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
               {/* Actions */}
               <div className="col-span-1 flex justify-end gap-1">
                 {userRole === 'admin' && (
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleEditSimulation(sim);
@@ -197,20 +182,18 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
                     title="Edit simulation"
                   >
                     <Edit className="w-3.5 h-3.5" />
-                  </motion.button>
+                  </button>
                 )}
                 <ChevronRight className="w-4 h-4 text-neutral-300" />
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       {/* Empty State */}
       {filteredSims.length === 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+        <div
           className="bg-white rounded-lg border border-neutral-200 shadow-sm p-8 text-center mt-4"
         >
           <div className="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center mx-auto mb-3">
@@ -218,7 +201,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
           </div>
           <h3 className="text-neutral-900 mb-1">No simulations found</h3>
           <p className="text-sm text-neutral-600">Try adjusting your search or filter criteria</p>
-        </motion.div>
+        </div>
       )}
 
       {/* Simulation Builder */}
@@ -235,18 +218,13 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
 
       {/* Add Simulation Button */}
       {userRole === 'admin' && (
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <button
           className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all"
           onClick={() => setShowBuilder(true)}
           title="Create new simulation"
         >
           <Plus className="w-5 h-5" />
-        </motion.button>
+        </button>
       )}
     </div>
   );

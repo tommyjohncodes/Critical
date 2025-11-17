@@ -37,25 +37,20 @@ export function Settings() {
   return (
     <div className="p-8 max-w-5xl mx-auto">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <div
         className="mb-8"
       >
         <h1 className="text-2xl text-neutral-900 mb-2">Settings</h1>
         <p className="text-neutral-600">Manage your account preferences and settings</p>
-      </motion.div>
+      </div>
 
       {/* Settings Sections */}
       <div className="space-y-6">
         {settingsSections.map((section, sectionIndex) => {
           const Icon = section.icon;
           return (
-            <motion.div
+            <div
               key={section.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: sectionIndex * 0.1 }}
               className="bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden"
             >
               <div className="p-6 border-b border-neutral-200 flex items-center gap-3">
@@ -67,11 +62,8 @@ export function Settings() {
 
               <div className="p-6 space-y-6">
                 {section.items.map((item, itemIndex) => (
-                  <motion.div
+                  <div
                     key={item.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: (sectionIndex * 0.1) + (itemIndex * 0.05) }}
                     className="flex items-center justify-between"
                   >
                     <div className="flex-1">
@@ -104,24 +96,21 @@ export function Settings() {
                           item.value ? 'bg-neutral-900' : 'bg-neutral-300'
                         }`}
                       >
-                        <motion.div
-                          animate={{ x: item.value ? 24 : 0 }}
+                        <div
                           className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-md"
+                          style={{ transform: item.value ? 'translateX(24px)' : 'translateX(0)' }}
                         />
                       </button>
                     )}
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           );
         })}
 
         {/* Password Change */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+        <div
           className="bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden"
         >
           <div className="p-6 border-b border-neutral-200 flex items-center gap-3">
@@ -156,21 +145,16 @@ export function Settings() {
                 placeholder="••••••••"
               />
             </div>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <button
               className="w-full py-3 bg-neutral-900 text-white rounded-md hover:bg-neutral-800 transition-all shadow-lg"
             >
               Update Password
-            </motion.button>
+            </button>
           </div>
-        </motion.div>
+        </div>
 
         {/* Preferences */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+        <div
           className="bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden"
         >
           <div className="p-6 border-b border-neutral-200 flex items-center gap-3">
@@ -208,26 +192,21 @@ export function Settings() {
               </select>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Save Button */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+        <div
           className="flex items-center justify-end gap-4"
         >
           <button className="px-6 py-3 bg-neutral-100 text-neutral-900 rounded-md hover:bg-neutral-200 transition-all">
             Cancel
           </button>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
             className="px-6 py-3 bg-neutral-900 text-white rounded-md hover:bg-neutral-800 transition-all shadow-lg"
           >
             Save Changes
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
       </div>
     </div>
   );
