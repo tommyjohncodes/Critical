@@ -3,10 +3,10 @@ import { Users, BookOpen, TrendingUp, BarChart2, Plus, Search, MoreVertical } fr
 
 export function Admin() {
   const teamStats = [
-    { label: 'Total Users', value: '48', change: '+8', icon: Users, color: 'blue' },
-    { label: 'Active Sessions', value: '12', change: '+3', icon: BookOpen, color: 'green' },
-    { label: 'Avg. Team Score', value: '84%', change: '+2%', icon: TrendingUp, color: 'purple' },
-    { label: 'Completion Rate', value: '92%', change: '+5%', icon: BarChart2, color: 'cyan' },
+    { label: 'Total Users', value: '48', change: '+8', icon: Users },
+    { label: 'Active Sessions', value: '12', change: '+3', icon: BookOpen },
+    { label: 'Avg. Team Score', value: '84%', change: '+2%', icon: TrendingUp },
+    { label: 'Completion Rate', value: '92%', change: '+5%', icon: BarChart2 },
   ];
 
   const users = [
@@ -34,13 +34,13 @@ export function Admin() {
         className="flex items-center justify-between mb-8"
       >
         <div>
-          <h1 className="text-3xl text-neutral-900 mb-2">Admin Panel</h1>
+          <h1 className="text-2xl text-neutral-900 mb-2">Admin Panel</h1>
           <p className="text-neutral-600">Manage users, track progress, and view organization-wide reports</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="px-6 py-3 bg-blue-900 text-white rounded-xl shadow-lg shadow-blue-900/20 hover:bg-blue-800 transition-all flex items-center gap-2"
+          className="px-6 py-3 bg-neutral-900 text-white rounded-md shadow-sm hover:bg-neutral-800 transition-all flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
           Add User
@@ -57,13 +57,13 @@ export function Admin() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-6 border border-neutral-200 shadow-sm hover:shadow-md transition-all"
+              className="bg-white rounded-lg p-6 border border-neutral-200 shadow-sm hover:shadow-md transition-all"
             >
               <div className="flex items-start justify-between mb-4">
-                <div className={`w-12 h-12 rounded-xl bg-${stat.color}-100 flex items-center justify-center`}>
-                  <Icon className={`w-6 h-6 text-${stat.color}-600`} />
+                <div className="w-12 h-12 rounded-md bg-neutral-100 flex items-center justify-center">
+                  <Icon className="w-6 h-6 text-neutral-600" />
                 </div>
-                <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                <span className="text-xs text-neutral-600 bg-neutral-100 px-2 py-1 rounded-full">
                   {stat.change}
                 </span>
               </div>
@@ -79,7 +79,7 @@ export function Admin() {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="lg:col-span-2 bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden"
+          className="lg:col-span-2 bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden"
         >
           <div className="p-6 border-b border-neutral-200">
             <div className="flex items-center justify-between mb-4">
@@ -90,7 +90,7 @@ export function Admin() {
               <input
                 type="text"
                 placeholder="Search users..."
-                className="w-full pl-12 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all"
+                className="w-full pl-12 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all"
               />
             </div>
           </div>
@@ -114,7 +114,7 @@ export function Admin() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    className="hover:bg-blue-50/30 transition-colors"
+                    className="hover:bg-neutral-50 transition-colors"
                   >
                     <td className="px-6 py-4">
                       <div>
@@ -123,11 +123,7 @@ export function Admin() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${
-                        user.role === 'Admin' ? 'bg-purple-100 text-purple-700' :
-                        user.role === 'Manager' ? 'bg-blue-100 text-blue-700' :
-                        'bg-neutral-100 text-neutral-700'
-                      }`}>
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-neutral-100 text-neutral-700">
                         {user.role}
                       </span>
                     </td>
@@ -137,14 +133,14 @@ export function Admin() {
                         <span className="text-sm text-neutral-900">{user.avgScore}%</span>
                         <div className="w-16 bg-neutral-200 rounded-full h-1.5">
                           <div
-                            className="bg-gradient-to-r from-blue-900 to-blue-600 h-1.5 rounded-full"
+                            className="bg-neutral-700 h-1.5 rounded-full"
                             style={{ width: `${user.avgScore}%` }}
                           />
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-green-100 text-green-700">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-neutral-100 text-neutral-700">
                         {user.status}
                       </span>
                     </td>
@@ -164,7 +160,7 @@ export function Admin() {
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-white rounded-2xl p-6 border border-neutral-200 shadow-sm"
+          className="bg-white rounded-lg p-6 border border-neutral-200 shadow-sm"
         >
           <h2 className="text-xl text-neutral-900 mb-1">Department Performance</h2>
           <p className="text-sm text-neutral-500 mb-6">Team statistics by department</p>
@@ -176,7 +172,7 @@ export function Admin() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="p-4 rounded-xl border border-neutral-200 hover:border-blue-200 hover:bg-blue-50/30 transition-all"
+                className="p-4 rounded-md border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all"
               >
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm text-neutral-900">{dept.name}</h3>
@@ -189,7 +185,7 @@ export function Admin() {
                   </div>
                   <div className="w-full bg-neutral-200 rounded-full h-1.5">
                     <div
-                      className="bg-gradient-to-r from-blue-900 to-blue-600 h-1.5 rounded-full"
+                      className="bg-neutral-700 h-1.5 rounded-full"
                       style={{ width: `${dept.avgScore}%` }}
                     />
                   </div>
@@ -208,17 +204,17 @@ export function Admin() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-6 text-white shadow-xl"
+        className="bg-neutral-900 rounded-lg p-6 text-white shadow-sm"
       >
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-xl mb-1">Assign Training Modules</h2>
-            <p className="text-blue-100 text-sm">Create custom training plans for teams or individuals</p>
+            <p className="text-neutral-300 text-sm">Create custom training plans for teams or individuals</p>
           </div>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="px-6 py-3 bg-white text-blue-900 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+            className="px-6 py-3 bg-white text-neutral-900 rounded-md shadow-sm hover:bg-neutral-100 transition-all flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             New Assignment
@@ -226,16 +222,16 @@ export function Admin() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-blue-800/50 backdrop-blur-sm rounded-xl p-4 border border-blue-700">
-            <p className="text-sm text-blue-100 mb-1">Pending Assignments</p>
+          <div className="bg-neutral-800 rounded-md p-4 border border-neutral-700">
+            <p className="text-sm text-neutral-300 mb-1">Pending Assignments</p>
             <p className="text-2xl">12</p>
           </div>
-          <div className="bg-blue-800/50 backdrop-blur-sm rounded-xl p-4 border border-blue-700">
-            <p className="text-sm text-blue-100 mb-1">In Progress</p>
+          <div className="bg-neutral-800 rounded-md p-4 border border-neutral-700">
+            <p className="text-sm text-neutral-300 mb-1">In Progress</p>
             <p className="text-2xl">8</p>
           </div>
-          <div className="bg-blue-800/50 backdrop-blur-sm rounded-xl p-4 border border-blue-700">
-            <p className="text-sm text-blue-100 mb-1">Completed</p>
+          <div className="bg-neutral-800 rounded-md p-4 border border-neutral-700">
+            <p className="text-sm text-neutral-300 mb-1">Completed</p>
             <p className="text-2xl">24</p>
           </div>
         </div>

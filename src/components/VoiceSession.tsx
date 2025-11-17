@@ -61,7 +61,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/30 p-8">
+    <div className="min-h-screen bg-neutral-50 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -77,7 +77,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleEnd}
-            className="px-4 py-2 bg-white border border-neutral-200 rounded-xl text-sm text-neutral-600 hover:bg-neutral-50 transition-all flex items-center gap-2"
+            className="px-4 py-2 bg-white border border-neutral-200 rounded-md text-sm text-neutral-600 hover:bg-neutral-50 transition-all flex items-center gap-2"
           >
             <X className="w-4 h-4" />
             End Session
@@ -89,12 +89,12 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="lg:col-span-1 bg-white rounded-2xl border border-neutral-200 shadow-lg p-6"
+            className="lg:col-span-1 bg-white rounded-lg border border-neutral-200 shadow-lg p-6"
           >
             {/* Timer */}
             <div className="text-center mb-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 rounded-full">
-                <div className={`w-2 h-2 rounded-full ${isActive && !isPaused ? 'bg-red-500 animate-pulse' : 'bg-neutral-400'}`} />
+                <div className={`w-2 h-2 rounded-full ${isActive && !isPaused ? 'bg-neutral-900 animate-pulse' : 'bg-neutral-400'}`} />
                 <span className="text-sm text-neutral-900">{formatTime(timer)}</span>
               </div>
             </div>
@@ -105,7 +105,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
                 {waveformBars.map((height, index) => (
                   <motion.div
                     key={index}
-                    className="w-1 bg-gradient-to-t from-blue-900 to-blue-600 rounded-full"
+                    className="w-1 bg-neutral-400 rounded-full"
                     animate={isActive && !isPaused ? {
                       height: [`${height}%`, `${Math.random() * 100}%`, `${height}%`],
                     } : {
@@ -128,7 +128,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleStart}
-                  className="w-16 h-16 bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl shadow-xl shadow-blue-900/30 flex items-center justify-center hover:shadow-2xl hover:shadow-blue-900/40 transition-all"
+                  className="w-16 h-16 bg-neutral-900 text-white rounded-lg shadow-xl flex items-center justify-center hover:bg-neutral-800 transition-all"
                 >
                   <Play className="w-7 h-7" />
                 </motion.button>
@@ -138,7 +138,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handlePause}
-                    className="w-14 h-14 bg-white border-2 border-neutral-200 text-neutral-900 rounded-xl shadow-lg flex items-center justify-center hover:bg-neutral-50 transition-all"
+                    className="w-14 h-14 bg-white border-2 border-neutral-200 text-neutral-900 rounded-md shadow-lg flex items-center justify-center hover:bg-neutral-50 transition-all"
                   >
                     {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
                   </motion.button>
@@ -147,7 +147,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsMuted(!isMuted)}
-                    className="w-14 h-14 bg-white border-2 border-neutral-200 text-neutral-900 rounded-xl shadow-lg flex items-center justify-center hover:bg-neutral-50 transition-all"
+                    className="w-14 h-14 bg-white border-2 border-neutral-200 text-neutral-900 rounded-md shadow-lg flex items-center justify-center hover:bg-neutral-50 transition-all"
                   >
                     {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
                   </motion.button>
@@ -155,7 +155,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-14 h-14 bg-white border-2 border-neutral-200 text-neutral-900 rounded-xl shadow-lg flex items-center justify-center hover:bg-neutral-50 transition-all"
+                    className="w-14 h-14 bg-white border-2 border-neutral-200 text-neutral-900 rounded-md shadow-lg flex items-center justify-center hover:bg-neutral-50 transition-all"
                   >
                     <RotateCcw className="w-5 h-5" />
                   </motion.button>
@@ -177,7 +177,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-6"
+              className="bg-white rounded-lg border border-neutral-200 shadow-sm p-6"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm text-neutral-900">Live Transcript</h3>
@@ -193,7 +193,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
                     className="pb-4 border-b border-neutral-100 last:border-0"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className={`text-xs ${item.speaker === 'You' ? 'text-blue-900' : 'text-neutral-600'}`}>
+                      <span className={`text-xs ${item.speaker === 'You' ? 'text-neutral-900' : 'text-neutral-600'}`}>
                         {item.speaker}
                       </span>
                       <span className="text-xs text-neutral-400">{item.timestamp}</span>
@@ -209,7 +209,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
-              className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-neutral-200 shadow-sm p-6"
+              className="bg-white rounded-lg border border-neutral-200 shadow-sm p-6"
             >
               <h3 className="text-sm text-neutral-900 mb-4">AI Feedback</h3>
               <div className="space-y-3">
@@ -219,15 +219,9 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className={`p-3 rounded-xl ${
-                      item.type === 'positive'
-                        ? 'bg-green-100 border border-green-200'
-                        : 'bg-blue-100 border border-blue-200'
-                    }`}
+                    className="p-3 rounded-md bg-neutral-100 border border-neutral-200"
                   >
-                    <p className={`text-xs ${
-                      item.type === 'positive' ? 'text-green-800' : 'text-blue-800'
-                    }`}>
+                    <p className="text-xs text-neutral-700">
                       {item.type === 'positive' ? '✓ ' : '💡 '}
                       {item.text}
                     </p>
@@ -254,17 +248,17 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl"
+              className="bg-white rounded-lg p-8 max-w-md w-full shadow-2xl"
             >
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-neutral-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl">✅</span>
                 </div>
                 <h2 className="text-2xl text-neutral-900 mb-2">Simulation Complete!</h2>
                 <p className="text-neutral-600">Great work! Your performance has been recorded.</p>
               </div>
 
-              <div className="bg-neutral-50 rounded-xl p-4 mb-6">
+              <div className="bg-neutral-50 rounded-md p-4 mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-neutral-600">Session Duration</span>
                   <span className="text-sm text-neutral-900">{formatTime(timer)}</span>
@@ -280,7 +274,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={onComplete}
-                  className="flex-1 py-3 bg-blue-900 text-white rounded-xl hover:bg-blue-800 transition-all shadow-lg"
+                  className="flex-1 py-3 bg-neutral-900 text-white rounded-md hover:bg-neutral-800 transition-all shadow-lg"
                 >
                   View Feedback
                 </motion.button>
@@ -288,7 +282,7 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowCompletion(false)}
-                  className="px-6 py-3 bg-neutral-100 text-neutral-900 rounded-xl hover:bg-neutral-200 transition-all"
+                  className="px-6 py-3 bg-neutral-100 text-neutral-900 rounded-md hover:bg-neutral-200 transition-all"
                 >
                   Continue
                 </motion.button>

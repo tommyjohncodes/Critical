@@ -39,21 +39,21 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
   const isAdmin = userRole === 'admin';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/30 flex">
+    <div className="min-h-screen bg-white flex">
       {/* Sidebar */}
       <motion.aside
         initial={{ x: -280 }}
         animate={{ x: 0 }}
-        className={`w-64 ${isAdmin ? 'bg-gradient-to-b from-green-50 to-white' : 'bg-white'} border-r ${isAdmin ? 'border-green-200' : 'border-neutral-200'} flex flex-col fixed h-screen z-40`}
+        className="w-64 bg-neutral-50 border-r border-neutral-200 flex flex-col fixed h-screen z-40"
       >
         {/* Logo with Admin Badge */}
-        <div className={`p-6 border-b ${isAdmin ? 'border-green-200' : 'border-neutral-200'}`}>
+        <div className="p-6 border-b border-neutral-200">
           <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 ${isAdmin ? 'bg-gradient-to-br from-green-900 to-green-800' : 'bg-gradient-to-br from-blue-900 to-blue-800'} rounded-xl flex items-center justify-center shadow-lg ${isAdmin ? 'shadow-green-900/20' : 'shadow-blue-900/20'}`}>
-              <Zap className="w-5 h-5 text-white" />
+            <div className="w-9 h-9 bg-neutral-900 rounded-md flex items-center justify-center">
+              <Zap className="w-4 h-4 text-white" />
             </div>
             <div className="flex-1">
-              <h1 className="text-lg text-neutral-900">Critical AI</h1>
+              <h1 className="text-sm font-semibold text-neutral-900">Critical AI</h1>
               <p className="text-xs text-neutral-500">Training Platform</p>
             </div>
           </div>
@@ -61,10 +61,10 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-3 px-3 py-1.5 bg-green-100 border border-green-200 rounded-lg"
+              className="mt-3 px-2.5 py-1.5 bg-neutral-200 border border-neutral-300 rounded-md"
             >
-              <p className="text-xs text-green-900">
-                <Shield className="w-3 h-3 inline mr-1" />
+              <p className="text-xs text-neutral-700 flex items-center gap-1.5">
+                <Shield className="w-3 h-3" />
                 Admin Mode
               </p>
             </motion.div>
@@ -72,7 +72,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-3 space-y-0.5">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activePage === item.id;
@@ -81,20 +81,18 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
               <motion.button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
-                whileHover={{ x: 4 }}
+                whileHover={{ x: 2 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm ${
                   isActive
-                    ? isAdmin 
-                      ? 'bg-green-50 text-green-700 shadow-sm'
-                      : 'bg-blue-50 text-blue-700 shadow-sm'
-                    : 'text-neutral-600 hover:bg-neutral-50'
+                    ? 'bg-neutral-900 text-white'
+                    : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
                 }`}
               >
-                <Icon className="w-5 h-5" />
-                <span className="text-sm">{item.label}</span>
-                {item.id === 'admin' && (
-                  <Shield className="w-3 h-3 ml-auto text-green-700" />
+                <Icon className="w-4 h-4" />
+                <span>{item.label}</span>
+                {item.id === 'admin' && isAdmin && (
+                  <Shield className="w-3 h-3 ml-auto opacity-60" />
                 )}
               </motion.button>
             );
@@ -102,41 +100,37 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
         </nav>
 
         {/* User section */}
-        <div className="p-4 border-t border-neutral-200">
+        <div className="p-3 border-t border-neutral-200">
           {/* Role Toggle (Development Only) */}
           {onRoleToggle && (
             <motion.button
               onClick={onRoleToggle}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className={`w-full flex items-center justify-between px-4 py-2.5 mb-3 rounded-xl transition-all text-sm ${
-                isAdmin
-                  ? 'bg-green-100 border border-green-200 text-green-900 hover:bg-green-200'
-                  : 'bg-blue-100 border border-blue-200 text-blue-900 hover:bg-blue-200'
-              }`}
+              className="w-full flex items-center justify-between px-3 py-2 mb-2 rounded-md transition-all text-sm bg-neutral-200 border border-neutral-300 text-neutral-700 hover:bg-neutral-300"
             >
-              <span className="flex items-center gap-2">
-                <Shield className="w-4 h-4" />
+              <span className="flex items-center gap-2 text-xs">
+                <Shield className="w-3.5 h-3.5" />
                 {isAdmin ? 'Switch to User' : 'Switch to Admin'}
               </span>
-              <span className="text-xs opacity-70">DEV</span>
+              <span className="text-[10px] opacity-60">DEV</span>
             </motion.button>
           )}
           
-          <div className="flex items-center gap-3 px-4 py-3 mb-2 rounded-xl bg-neutral-50">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-900 to-blue-800 flex items-center justify-center">
-              <span className="text-xs text-white">JD</span>
+          <div className="flex items-center gap-3 px-3 py-2.5 mb-1.5 rounded-md bg-neutral-100">
+            <div className="w-7 h-7 rounded-full bg-neutral-900 flex items-center justify-center">
+              <span className="text-[11px] font-medium text-white">JD</span>
             </div>
-            <div className="flex-1">
-              <p className="text-sm text-neutral-900">Critical AI</p>
-              <p className="text-xs text-neutral-500">Training Platform</p>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-medium text-neutral-900 truncate">John Doe</p>
+              <p className="text-[11px] text-neutral-500 truncate">john@company.com</p>
             </div>
           </div>
           <motion.button
             onClick={onLogout}
-            whileHover={{ x: 4 }}
+            whileHover={{ x: 2 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-neutral-600 hover:bg-red-50 hover:text-red-600 transition-all text-sm"
+            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-md text-neutral-600 hover:bg-red-50 hover:text-red-600 transition-all text-sm"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>
@@ -145,7 +139,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
       </motion.aside>
 
       {/* Main content */}
-      <main className="flex-1 ml-64">
+      <main className="flex-1 ml-64 bg-white">
         {children}
       </main>
     </div>

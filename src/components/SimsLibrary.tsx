@@ -42,17 +42,17 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Medium': return 'text-yellow-600 bg-yellow-50';
-      case 'Hard': return 'text-orange-600 bg-orange-50';
-      case 'Very Hard': return 'text-red-600 bg-red-50';
-      default: return 'text-green-600 bg-green-50';
+      case 'Medium': return 'text-neutral-700 bg-neutral-100';
+      case 'Hard': return 'text-neutral-800 bg-neutral-200';
+      case 'Very Hard': return 'text-neutral-900 bg-neutral-300';
+      default: return 'text-neutral-600 bg-neutral-50';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'Completed': return 'text-green-600 bg-green-50';
-      case 'In Progress': return 'text-blue-600 bg-blue-50';
+      case 'Completed': return 'text-neutral-700 bg-neutral-100';
+      case 'In Progress': return 'text-neutral-700 bg-neutral-100';
       default: return 'text-neutral-600 bg-neutral-50';
     }
   };
@@ -71,7 +71,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
         animate={{ opacity: 1, y: 0 }}
         className="mb-6"
       >
-        <h1 className="text-3xl text-neutral-900 mb-2">Simulation Library</h1>
+        <h1 className="text-2xl text-neutral-900 mb-2">Simulation Library</h1>
         <p className="text-neutral-600">Browse and run AI-powered conversation simulations</p>
       </motion.div>
 
@@ -79,28 +79,28 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-xl p-4 border border-neutral-200 shadow-sm mb-4"
+        className="bg-white rounded-md p-4 border border-neutral-200 shadow-sm mb-4"
       >
         <div className="flex flex-col lg:flex-row gap-3">
           {/* Search */}
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-700" />
             <input
               type="text"
               placeholder="Search simulations..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-3 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all"
+              className="w-full pl-10 pr-3 py-2 text-sm bg-white border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all"
             />
           </div>
 
           {/* Industry Filter */}
           <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-700" />
             <select
               value={filterIndustry}
               onChange={(e) => setFilterIndustry(e.target.value)}
-              className="pl-10 pr-8 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all appearance-none cursor-pointer min-w-[180px]"
+              className="pl-10 pr-8 py-2 text-sm bg-white border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all appearance-none cursor-pointer min-w-[180px]"
             >
               {industries.map(industry => (
                 <option key={industry} value={industry.toLowerCase()}>
@@ -117,7 +117,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-white rounded-xl border border-neutral-200 shadow-sm overflow-hidden"
+        className="bg-white rounded-md border border-neutral-200 shadow-sm overflow-hidden"
       >
         {/* Table Header */}
         <div className="grid grid-cols-12 gap-3 px-4 py-2.5 bg-neutral-50 border-b border-neutral-200 text-xs text-neutral-600">
@@ -136,7 +136,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.05 }}
-              whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.03)' }}
+              whileHover={{ backgroundColor: 'rgba(245, 245, 245, 0.5)' }}
               className="grid grid-cols-12 gap-3 px-4 py-3 items-center transition-colors cursor-pointer"
               onClick={() => onRunSimulation(sim.id)}
             >
@@ -149,7 +149,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
                     e.stopPropagation();
                     onRunSimulation(sim.id);
                   }}
-                  className="w-8 h-8 rounded-lg bg-blue-900 text-white flex items-center justify-center shadow-sm hover:shadow-md transition-all flex-shrink-0"
+                  className="w-8 h-8 rounded-md bg-neutral-900 text-white flex items-center justify-center shadow-sm hover:shadow-md transition-all flex-shrink-0"
                 >
                   <Play className="w-3.5 h-3.5" />
                 </motion.button>
@@ -166,7 +166,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
 
               {/* Industry */}
               <div className="col-span-2">
-                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs bg-blue-50 text-blue-700">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs bg-neutral-100 text-neutral-700">
                   {sim.industry}
                 </span>
               </div>
@@ -193,7 +193,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
                       e.stopPropagation();
                       handleEditSimulation(sim);
                     }}
-                    className="w-7 h-7 rounded-md bg-green-50 text-green-700 flex items-center justify-center hover:bg-green-100 transition-all"
+                    className="w-7 h-7 rounded-md bg-neutral-100 text-neutral-700 flex items-center justify-center hover:bg-neutral-200 transition-all"
                     title="Edit simulation"
                   >
                     <Edit className="w-3.5 h-3.5" />
@@ -211,10 +211,10 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="bg-white rounded-xl border border-neutral-200 shadow-sm p-8 text-center mt-4"
+          className="bg-white rounded-lg border border-neutral-200 shadow-sm p-8 text-center mt-4"
         >
-          <div className="w-12 h-12 bg-neutral-100 rounded-xl flex items-center justify-center mx-auto mb-3">
-            <Search className="w-6 h-6 text-neutral-400" />
+          <div className="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <Search className="w-6 h-6 text-neutral-700" />
           </div>
           <h3 className="text-neutral-900 mb-1">No simulations found</h3>
           <p className="text-sm text-neutral-600">Try adjusting your search or filter criteria</p>
@@ -241,7 +241,7 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
           transition={{ delay: 0.2 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-green-700 text-white flex items-center justify-center shadow-lg shadow-green-900/20 hover:shadow-xl hover:shadow-green-900/30 transition-all"
+          className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all"
           onClick={() => setShowBuilder(true)}
           title="Create new simulation"
         >

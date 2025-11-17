@@ -10,7 +10,6 @@ interface AnalyticsProps {
 export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
 
-  // Completed simulations with detailed feedback
   const completedSims = [
     { 
       id: '1',
@@ -119,10 +118,10 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
   ];
 
   const getScoreColor = (score: number, passingScore: number) => {
-    if (score >= 90) return 'text-green-700 bg-green-50';
-    if (score >= passingScore) return 'text-blue-700 bg-blue-50';
-    if (score >= 70) return 'text-orange-700 bg-orange-50';
-    return 'text-red-700 bg-red-50';
+    if (score >= 90) return 'text-neutral-700 bg-neutral-100';
+    if (score >= passingScore) return 'text-neutral-700 bg-neutral-100';
+    if (score >= 70) return 'text-neutral-600 bg-neutral-50';
+    return 'text-neutral-700 bg-neutral-100';
   };
 
   const getScoreIcon = (score: number, passingScore: number) => {
@@ -134,30 +133,27 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
     setExpandedRow(expandedRow === id ? null : id);
   };
 
-  // User view - expandable table
   if (userRole === 'user') {
     return (
       <div className="p-8 max-w-7xl mx-auto">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-6"
         >
-          <h1 className="text-3xl text-neutral-900 mb-2">My Results</h1>
-          <p className="text-neutral-600">Review your completed simulations and feedback</p>
+          <h1 className="text-2xl text-neutral-900 mb-2">My Results</h1>
+          <p className="text-sm text-neutral-600">Review your completed simulations and feedback</p>
         </motion.div>
 
-        {/* Summary Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl p-5 border border-neutral-200 shadow-sm"
+            className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                <Target className="w-5 h-5 text-blue-700" />
+              <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
+                <Target className="w-5 h-5 text-neutral-700" />
               </div>
               <div>
                 <p className="text-2xl text-neutral-900">8</p>
@@ -170,11 +166,11 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-xl p-5 border border-neutral-200 shadow-sm"
+            className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-green-700" />
+              <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-neutral-700" />
               </div>
               <div>
                 <p className="text-2xl text-neutral-900">85%</p>
@@ -187,11 +183,11 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-xl p-5 border border-neutral-200 shadow-sm"
+            className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center">
-                <RefreshCw className="w-5 h-5 text-orange-700" />
+              <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
+                <RefreshCw className="w-5 h-5 text-neutral-700" />
               </div>
               <div>
                 <p className="text-2xl text-neutral-900">2</p>
@@ -201,14 +197,12 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
           </motion.div>
         </div>
 
-        {/* Completed Simulations Table */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-xl border border-neutral-200 shadow-sm overflow-hidden"
+          className="bg-white rounded-md border border-neutral-200 overflow-hidden"
         >
-          {/* Table Header */}
           <div className="grid grid-cols-12 gap-3 px-5 py-3 bg-neutral-50 border-b border-neutral-200 text-xs text-neutral-600">
             <div className="col-span-6">Simulation</div>
             <div className="col-span-2">Industry</div>
@@ -216,20 +210,16 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
             <div className="col-span-2 text-right">Score</div>
           </div>
 
-          {/* Table Body */}
           <div className="divide-y divide-neutral-100">
             {completedSims.map((sim, index) => (
               <div key={sim.id}>
-                {/* Main Row */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.03)' }}
-                  className="grid grid-cols-12 gap-3 px-5 py-3 items-center transition-colors cursor-pointer"
+                  className="grid grid-cols-12 gap-3 px-5 py-3 items-center transition-colors cursor-pointer hover:bg-neutral-50"
                   onClick={() => toggleRow(sim.id)}
                 >
-                  {/* Simulation Title */}
                   <div className="col-span-6 flex items-center gap-2">
                     <motion.div
                       animate={{ rotate: expandedRow === sim.id ? 180 : 0 }}
@@ -240,28 +230,24 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                     <h3 className="text-sm text-neutral-900">{sim.title}</h3>
                   </div>
 
-                  {/* Industry */}
                   <div className="col-span-2">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs bg-blue-50 text-blue-700">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-100 text-neutral-700">
                       {sim.industry}
                     </span>
                   </div>
 
-                  {/* Completed Date */}
                   <div className="col-span-2">
                     <p className="text-xs text-neutral-500">{sim.completedDate}</p>
                   </div>
 
-                  {/* Score */}
                   <div className="col-span-2 flex items-center justify-end gap-2">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-sm ${getScoreColor(sim.score, sim.passingScore)}`}>
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-sm ${getScoreColor(sim.score, sim.passingScore)}`}>
                       {getScoreIcon(sim.score, sim.passingScore)}
                       {sim.score}%
                     </span>
                   </div>
                 </motion.div>
 
-                {/* Expanded Feedback Section */}
                 {expandedRow === sim.id && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
@@ -272,30 +258,28 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                   >
                     <div className="px-5 py-5">
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* Strengths */}
                         <div>
-                          <h4 className="text-sm text-green-900 mb-3 flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4" />
+                          <h4 className="text-sm text-neutral-900 mb-3 flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4 text-neutral-700" />
                             Strengths
                           </h4>
                           <ul className="space-y-2">
                             {sim.feedback.strengths.map((strength, i) => (
-                              <li key={i} className="text-sm text-neutral-700 pl-5 relative before:content-['•'] before:absolute before:left-0 before:text-green-600">
+                              <li key={i} className="text-sm text-neutral-700 pl-5 relative before:content-['•'] before:absolute before:left-0 before:text-neutral-600">
                                 {strength}
                               </li>
                             ))}
                           </ul>
                         </div>
 
-                        {/* Areas for Improvement */}
                         <div>
-                          <h4 className="text-sm text-orange-900 mb-3 flex items-center gap-2">
-                            <AlertCircle className="w-4 h-4" />
+                          <h4 className="text-sm text-neutral-900 mb-3 flex items-center gap-2">
+                            <AlertCircle className="w-4 h-4 text-neutral-700" />
                             Areas for Improvement
                           </h4>
                           <ul className="space-y-2">
                             {sim.feedback.improvements.map((improvement, i) => (
-                              <li key={i} className="text-sm text-neutral-700 pl-5 relative before:content-['•'] before:absolute before:left-0 before:text-orange-600">
+                              <li key={i} className="text-sm text-neutral-700 pl-5 relative before:content-['•'] before:absolute before:left-0 before:text-neutral-600">
                                 {improvement}
                               </li>
                             ))}
@@ -303,19 +287,17 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                         </div>
                       </div>
 
-                      {/* Next Steps */}
                       <div className="mt-5 pt-5 border-t border-neutral-200">
                         <h4 className="text-sm text-neutral-900 mb-2">Next Steps</h4>
                         <p className="text-sm text-neutral-600 mb-4">{sim.feedback.nextSteps}</p>
 
-                        {/* Action Button */}
                         {sim.score < sim.passingScore ? (
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               onRunSimulation?.(sim.id);
                             }}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-sm transition-all"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white rounded-md text-sm transition-all"
                           >
                             <RefreshCw className="w-4 h-4" />
                             Retake Simulation
@@ -326,7 +308,7 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                               e.stopPropagation();
                               onRunSimulation?.(sim.id);
                             }}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded-lg text-sm transition-all"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-900 rounded-md text-sm transition-all"
                           >
                             <Play className="w-4 h-4" />
                             Practice Again
@@ -344,7 +326,6 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
     );
   }
 
-  // Admin view - team overview dashboard
   const employees = [
     {
       id: '1',
@@ -440,22 +421,22 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
 
   const getStatusBadge = (status: string, trend: string) => {
     if (status === 'active' && parseFloat(trend) > 0) {
-      return <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs bg-green-50 text-green-700">Active</span>;
+      return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-700 text-white">Active</span>;
     }
     if (status === 'active') {
-      return <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs bg-blue-50 text-blue-700">Active</span>;
+      return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-200 text-neutral-700">Active</span>;
     }
     if (status === 'needs-attention') {
-      return <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs bg-orange-50 text-orange-700">Needs Attention</span>;
+      return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-400 text-white">Needs Attention</span>;
     }
-    return <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs bg-neutral-100 text-neutral-600">Inactive</span>;
+    return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-100 text-neutral-600">Inactive</span>;
   };
 
   const getScoreBadgeColor = (score: number) => {
-    if (score >= 90) return 'text-green-700 bg-green-50';
-    if (score >= 80) return 'text-blue-700 bg-blue-50';
-    if (score >= 70) return 'text-orange-700 bg-orange-50';
-    return 'text-red-700 bg-red-50';
+    if (score >= 90) return 'text-neutral-700 bg-neutral-100';
+    if (score >= 80) return 'text-neutral-700 bg-neutral-100';
+    if (score >= 70) return 'text-neutral-600 bg-neutral-50';
+    return 'text-neutral-700 bg-neutral-100';
   };
 
   const activeEmployees = employees.filter(e => e.status === 'active').length;
@@ -465,40 +446,38 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-6"
       >
-        <h1 className="text-3xl text-neutral-900 mb-2">Team Analytics</h1>
-        <p className="text-neutral-600">Monitor employee performance and platform usage</p>
+        <h1 className="text-2xl text-neutral-900 mb-2">Team Analytics</h1>
+        <p className="text-sm text-neutral-600">Monitor employee performance and platform usage</p>
       </motion.div>
 
-      {/* Team Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-green-700 to-green-600 rounded-xl p-5 text-white shadow-lg"
+          className="bg-neutral-900 rounded-md p-5 text-white"
         >
           <div className="flex items-center justify-between mb-2">
-            <TrendingUp className="w-7 h-7 opacity-80" />
-            <span className="text-xs bg-white/20 px-2 py-1 rounded-full">Team Avg</span>
+            <TrendingUp className="w-7 h-7 text-neutral-400" />
+            <span className="text-xs bg-neutral-800 px-2 py-1 rounded-full">Team Avg</span>
           </div>
           <p className="text-3xl mb-1">{avgTeamScore}%</p>
-          <p className="text-green-100 text-sm">Average Score</p>
+          <p className="text-neutral-400 text-sm">Average Score</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="bg-white rounded-xl p-5 border border-neutral-200 shadow-sm"
+          className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-              <Target className="w-5 h-5 text-blue-700" />
+            <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
+              <Target className="w-5 h-5 text-neutral-700" />
             </div>
             <div>
               <p className="text-2xl text-neutral-900">{totalSimsCompleted}</p>
@@ -511,11 +490,11 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white rounded-xl p-5 border border-neutral-200 shadow-sm"
+          className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-              <CheckCircle className="w-5 h-5 text-green-700" />
+            <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
+              <CheckCircle className="w-5 h-5 text-neutral-700" />
             </div>
             <div>
               <p className="text-2xl text-neutral-900">{activeEmployees}</p>
@@ -528,11 +507,11 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="bg-white rounded-xl p-5 border border-neutral-200 shadow-sm"
+          className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center">
-              <AlertCircle className="w-5 h-5 text-orange-700" />
+            <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
+              <AlertCircle className="w-5 h-5 text-neutral-700" />
             </div>
             <div>
               <p className="text-2xl text-neutral-900">{needsAttention}</p>
@@ -542,12 +521,11 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
         </motion.div>
       </div>
 
-      {/* Quick Filters */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-white rounded-xl p-4 border border-neutral-200 shadow-sm mb-4"
+        className="bg-white rounded-md p-4 border border-neutral-200 mb-4"
       >
         <div className="flex items-center gap-3">
           <div className="flex-1 relative">
@@ -555,16 +533,16 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
             <input
               type="text"
               placeholder="Search employees..."
-              className="w-full pl-10 pr-3 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 focus:border-transparent transition-all"
+              className="w-full pl-10 pr-3 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all"
             />
           </div>
-          <select className="px-4 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 transition-all cursor-pointer">
+          <select className="px-4 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-400 transition-all cursor-pointer">
             <option>All Employees</option>
             <option>Active Only</option>
             <option>Needs Attention</option>
             <option>Inactive</option>
           </select>
-          <select className="px-4 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 transition-all cursor-pointer">
+          <select className="px-4 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-400 transition-all cursor-pointer">
             <option>Last 30 Days</option>
             <option>Last 7 Days</option>
             <option>Last 90 Days</option>
@@ -573,14 +551,12 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
         </div>
       </motion.div>
 
-      {/* Employee Performance Table */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25 }}
-        className="bg-white rounded-xl border border-neutral-200 shadow-sm overflow-hidden"
+        className="bg-white rounded-md border border-neutral-200 overflow-hidden"
       >
-        {/* Table Header */}
         <div className="grid grid-cols-12 gap-3 px-5 py-3 bg-neutral-50 border-b border-neutral-200 text-xs text-neutral-600">
           <div className="col-span-4">Employee</div>
           <div className="col-span-2">Completed</div>
@@ -589,20 +565,16 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
           <div className="col-span-2 text-right">Status</div>
         </div>
 
-        {/* Table Body */}
         <div className="divide-y divide-neutral-100">
           {employees.map((employee, index) => (
             <div key={employee.id}>
-              {/* Main Row */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05 }}
-                whileHover={{ backgroundColor: 'rgba(34, 197, 94, 0.03)' }}
-                className="grid grid-cols-12 gap-3 px-5 py-3 items-center transition-colors cursor-pointer"
+                className="grid grid-cols-12 gap-3 px-5 py-3 items-center transition-colors cursor-pointer hover:bg-neutral-50"
                 onClick={() => toggleRow(employee.id)}
               >
-                {/* Employee Name & Role */}
                 <div className="col-span-4 flex items-center gap-2">
                   <motion.div
                     animate={{ rotate: expandedRow === employee.id ? 180 : 0 }}
@@ -610,7 +582,7 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                   >
                     <ChevronDown className="w-4 h-4 text-neutral-400" />
                   </motion.div>
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-600 to-green-700 flex items-center justify-center text-white text-sm flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center text-white text-sm flex-shrink-0">
                     {employee.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div className="min-w-0">
@@ -619,35 +591,30 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                   </div>
                 </div>
 
-                {/* Total Sims Completed */}
                 <div className="col-span-2">
                   <p className="text-sm text-neutral-900">{employee.totalSims} sims</p>
                 </div>
 
-                {/* Average Score */}
                 <div className="col-span-2">
                   <div className="flex items-center gap-2">
-                    <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-sm ${getScoreBadgeColor(employee.avgScore)}`}>
+                    <span className={`inline-flex items-center px-2.5 py-1 rounded text-sm ${getScoreBadgeColor(employee.avgScore)}`}>
                       {employee.avgScore}%
                     </span>
-                    <span className={`text-xs ${parseFloat(employee.trend) > 0 ? 'text-green-600' : parseFloat(employee.trend) < 0 ? 'text-red-600' : 'text-neutral-500'}`}>
+                    <span className={`text-xs ${parseFloat(employee.trend) > 0 ? 'text-neutral-700' : parseFloat(employee.trend) < 0 ? 'text-neutral-500' : 'text-neutral-400'}`}>
                       {employee.trend}
                     </span>
                   </div>
                 </div>
 
-                {/* Last Active */}
                 <div className="col-span-2">
                   <p className="text-xs text-neutral-500">{employee.lastActive}</p>
                 </div>
 
-                {/* Status */}
                 <div className="col-span-2 flex justify-end">
                   {getStatusBadge(employee.status, employee.trend)}
                 </div>
               </motion.div>
 
-              {/* Expanded Recent Activity */}
               {expandedRow === employee.id && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
@@ -660,25 +627,24 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
                     <h4 className="text-sm text-neutral-900 mb-3">Recent Activity</h4>
                     <div className="space-y-2">
                       {employee.recentSims.map((sim, i) => (
-                        <div key={i} className="flex items-center justify-between p-3 bg-white rounded-lg border border-neutral-200">
+                        <div key={i} className="flex items-center justify-between p-3 bg-white rounded-md border border-neutral-200">
                           <div className="flex-1">
                             <p className="text-sm text-neutral-900">{sim.title}</p>
                             <p className="text-xs text-neutral-500">{sim.date}</p>
                           </div>
-                          <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-sm ${getScoreBadgeColor(sim.score)}`}>
+                          <span className={`inline-flex items-center px-2.5 py-1 rounded text-sm ${getScoreBadgeColor(sim.score)}`}>
                             {sim.score}%
                           </span>
                         </div>
                       ))}
                     </div>
 
-                    {/* Action Buttons */}
                     <div className="flex items-center gap-2 mt-4 pt-4 border-t border-neutral-200">
-                      <button className="text-sm text-green-700 hover:text-green-800 flex items-center gap-1 transition-colors">
+                      <button className="text-sm text-neutral-700 hover:text-neutral-900 flex items-center gap-1 transition-colors">
                         View Full History <ChevronRight className="w-3 h-3" />
                       </button>
                       {(employee.status === 'needs-attention' || employee.avgScore < 75) && (
-                        <button className="ml-auto text-sm px-3 py-1.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-all">
+                        <button className="ml-auto text-sm px-3 py-1.5 bg-neutral-900 hover:bg-neutral-800 text-white rounded-md transition-all">
                           Schedule Coaching
                         </button>
                       )}
@@ -690,73 +656,6 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
           ))}
         </div>
       </motion.div>
-
-      {/* Insights & Recommendations */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-        {/* Top Performers */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-white rounded-xl p-6 border border-neutral-200 shadow-sm"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Award className="w-5 h-5 text-green-700" />
-            <h2 className="text-lg text-neutral-900">Top Performers</h2>
-          </div>
-          <div className="space-y-3">
-            {employees
-              .filter(e => e.avgScore >= 85)
-              .sort((a, b) => b.avgScore - a.avgScore)
-              .slice(0, 3)
-              .map((emp, i) => (
-                <div key={emp.id} className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-600 to-green-700 flex items-center justify-center text-white text-xs flex-shrink-0">
-                    {i + 1}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-neutral-900">{emp.name}</p>
-                    <p className="text-xs text-neutral-500">{emp.totalSims} sims completed</p>
-                  </div>
-                  <span className="text-sm text-green-700 px-2.5 py-1 bg-green-100 rounded-md">{emp.avgScore}%</span>
-                </div>
-              ))}
-          </div>
-        </motion.div>
-
-        {/* Needs Attention */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35 }}
-          className="bg-white rounded-xl p-6 border border-neutral-200 shadow-sm"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <AlertCircle className="w-5 h-5 text-orange-700" />
-            <h2 className="text-lg text-neutral-900">Needs Coaching</h2>
-          </div>
-          <div className="space-y-3">
-            {employees
-              .filter(e => e.status === 'needs-attention' || e.avgScore < 75)
-              .map((emp) => (
-                <div key={emp.id} className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-600 to-orange-700 flex items-center justify-center text-white text-xs flex-shrink-0">
-                    {emp.name.split(' ').map(n => n[0]).join('')}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-neutral-900">{emp.name}</p>
-                    <p className="text-xs text-neutral-500">
-                      {emp.avgScore < 75 ? `Low avg score (${emp.avgScore}%)` : 'Inactive or declining performance'}
-                    </p>
-                  </div>
-                  <button className="text-xs px-2.5 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded-md transition-all">
-                    Schedule
-                  </button>
-                </div>
-              ))}
-          </div>
-        </motion.div>
-      </div>
     </div>
   );
 }
