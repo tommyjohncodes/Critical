@@ -78,7 +78,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
                 onClick={() => onNavigate(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md transition-all text-sm ${
                   isActive
-                    ? 'bg-neutral-900 text-white'
+                    ? 'bg-[#eaeaea] text-neutral-900'
                     : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
                 }`}
               >
