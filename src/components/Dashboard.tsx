@@ -122,8 +122,8 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
                   className="flex items-center justify-between p-4 rounded-md border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all cursor-pointer"
                   onClick={() => sim.status !== 'not-started' ? onNavigate('session', sim.id.toString()) : onNavigate('sims')}
                 >
-                  <div className="flex items-center gap-3.5 flex-1">
-                    <div className={`w-8 h-8 rounded-md flex items-center justify-center ${
+                  <div className="flex items-center gap-3.5 flex-1 min-w-0">
+                    <div className={`w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0 ${
                       sim.status === 'completed' ? 'bg-neutral-900 text-white' : 'bg-neutral-100 text-neutral-500'
                     }`}>
                       {sim.status === 'completed' ? (
@@ -132,7 +132,7 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
                         <Play className="w-4 h-4" />
                       )}
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-medium text-neutral-900 mb-0.5">{sim.title}</h3>
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-neutral-500">{sim.industry}</span>
@@ -141,7 +141,7 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 flex-shrink-0">
                     {sim.status === 'completed' && (
                       <span className="text-xs px-2.5 py-1 bg-neutral-100 text-neutral-700 rounded-md font-medium">
                         {sim.score}%
@@ -249,11 +249,11 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
                   whileHover={{ x: 2 }}
                   className="flex items-center justify-between p-4 rounded-md border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all cursor-pointer"
                 >
-                  <div className="flex items-center gap-3.5 flex-1">
-                    <div className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center text-xs font-medium">
+                  <div className="flex items-center gap-3.5 flex-1 min-w-0">
+                    <div className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center text-xs font-medium flex-shrink-0">
                       {employee.name.split(' ').map(n => n[0]).join('')}
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-medium text-neutral-900 mb-0.5">{employee.name}</h3>
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-neutral-500">{employee.department}</span>
@@ -262,7 +262,7 @@ export function Dashboard({ userRole, onNavigate, userName = 'John' }: Dashboard
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 flex-shrink-0">
                     <div className="text-right">
                       <p className="text-sm font-medium text-neutral-900">{employee.completed}/{employee.assigned}</p>
                       <p className="text-xs text-neutral-500">Completed</p>
