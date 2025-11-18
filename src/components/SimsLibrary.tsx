@@ -135,7 +135,8 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
                     e.stopPropagation();
                     onRunSimulation(sim.id);
                   }}
-                  className="w-8 h-8 rounded-md bg-neutral-900 text-white flex items-center justify-center shadow-sm hover:shadow-md transition-all flex-shrink-0"
+                  className="w-8 h-8 rounded-md text-white flex items-center justify-center shadow-sm hover:shadow-md transition-all flex-shrink-0"
+                  style={{ backgroundColor: '#6082B6' }}
                 >
                   <Play className="w-3.5 h-3.5" />
                 </button>
@@ -218,7 +219,8 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
       {/* Add Simulation Button */}
       {userRole === 'admin' && (
         <button
-          className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-neutral-900 text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all"
+          className="fixed bottom-8 right-8 w-12 h-12 rounded-full text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all"
+          style={{ backgroundColor: '#6082B6' }}
           onClick={() => setShowBuilder(true)}
           title="Create new simulation"
         >
