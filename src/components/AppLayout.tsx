@@ -41,7 +41,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
     <div className="min-h-screen bg-white flex">
       {/* Sidebar */}
       <aside
-        className="w-64 bg-neutral-50 border-r border-neutral-200 flex flex-col fixed h-screen z-40"
+        className="w-64 bg-neutral-100 border-r border-neutral-200 flex flex-col fixed h-screen z-40"
       >
         {/* Logo with Admin Badge */}
         <div className="p-6 border-b border-neutral-200">
