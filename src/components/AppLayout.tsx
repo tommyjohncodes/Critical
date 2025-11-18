@@ -47,7 +47,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
         {/* Logo with Admin Badge */}
         <div className="p-6 border-b border-neutral-200">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-neutral-900 rounded-md flex items-center justify-center">
+            <div className="w-9 h-9 rounded-md flex items-center justify-center" style={{ backgroundColor: '#6082B6' }}>
               <Zap className="w-4 h-4 text-white" />
             </div>
             <div className="flex-1">
@@ -111,7 +111,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
           )}
           
           <div className="flex items-center gap-3 px-3 py-2.5 mb-1.5 rounded-md bg-neutral-100">
-            <div className="w-7 h-7 rounded-full bg-neutral-900 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ backgroundColor: '#6082B6' }}>
               <span className="text-[11px] font-medium text-white">JD</span>
             </div>
             <div className="flex-1 min-w-0">
