@@ -1,5 +1,15 @@
 import { TrendingUp, ChevronRight, ChevronDown, RefreshCw, CheckCircle, AlertCircle, Play, Search, Target } from "lucide-react";
 import { useState } from "react";
+import Box from '@mui/joy/Box';
+import Card from '@mui/joy/Card';
+import Typography from '@mui/joy/Typography';
+import Sheet from '@mui/joy/Sheet';
+import Button from '@mui/joy/Button';
+import Chip from '@mui/joy/Chip';
+import Input from '@mui/joy/Input';
+import Select from '@mui/joy/Select';
+import Option from '@mui/joy/Option';
+import Avatar from '@mui/joy/Avatar';
 
 interface AnalyticsProps {
   userRole: 'admin' | 'user';
@@ -116,189 +126,262 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
     },
   ];
 
-  const getScoreColor = (score: number, passingScore: number) => {
-    if (score >= 90) return 'text-neutral-700 bg-neutral-100';
-    if (score >= passingScore) return 'text-neutral-700 bg-neutral-100';
-    if (score >= 70) return 'text-neutral-600 bg-neutral-50';
-    return 'text-neutral-700 bg-neutral-100';
-  };
-
-  const getScoreIcon = (score: number, passingScore: number) => {
-    if (score >= passingScore) return <CheckCircle className="w-4 h-4" />;
-    return <AlertCircle className="w-4 h-4" />;
-  };
-
   const toggleRow = (id: string) => {
     setExpandedRow(expandedRow === id ? null : id);
   };
 
   if (userRole === 'user') {
     return (
-      <div className="p-8 max-w-7xl mx-auto">
-        <div
-          className="mb-6"
-        >
-          <h1 className="text-2xl text-neutral-900 mb-2">My Results</h1>
-          <p className="text-sm text-neutral-600">Review your completed simulations and feedback</p>
-        </div>
+      <Box sx={{ p: 4, maxWidth: '1400px', mx: 'auto' }}>
+        <Box sx={{ mb: 3 }}>
+          <Typography level="h2" sx={{ mb: 0.5 }}>
+            My Results
+          </Typography>
+          <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+            Review your completed simulations and feedback
+          </Typography>
+        </Box>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div
-            className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
-                <Target className="w-5 h-5 text-neutral-700" />
-              </div>
-              <div>
-                <p className="text-2xl text-neutral-900">8</p>
-                <p className="text-sm text-neutral-500">Completed</p>
-              </div>
-            </div>
-          </div>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, 
+          gap: 2, 
+          mb: 3 
+        }}>
+          <Card variant="outlined" sx={{ p: 2.5 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Sheet
+                variant="soft"
+                color="neutral"
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 'sm',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Target size={20} />
+              </Sheet>
+              <Box>
+                <Typography level="h2">8</Typography>
+                <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+                  Completed
+                </Typography>
+              </Box>
+            </Box>
+          </Card>
 
-          <div
-            className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-neutral-700" />
-              </div>
-              <div>
-                <p className="text-2xl text-neutral-900">85%</p>
-                <p className="text-sm text-neutral-500">Avg Score</p>
-              </div>
-            </div>
-          </div>
+          <Card variant="outlined" sx={{ p: 2.5 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Sheet
+                variant="soft"
+                color="neutral"
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 'sm',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <TrendingUp size={20} />
+              </Sheet>
+              <Box>
+                <Typography level="h2">85%</Typography>
+                <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+                  Avg Score
+                </Typography>
+              </Box>
+            </Box>
+          </Card>
 
-          <div
-            className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
-                <RefreshCw className="w-5 h-5 text-neutral-700" />
-              </div>
-              <div>
-                <p className="text-2xl text-neutral-900">2</p>
-                <p className="text-sm text-neutral-500">Need Retry</p>
-              </div>
-            </div>
-          </div>
-        </div>
+          <Card variant="outlined" sx={{ p: 2.5 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Sheet
+                variant="soft"
+                color="neutral"
+                sx={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 'sm',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <RefreshCw size={20} />
+              </Sheet>
+              <Box>
+                <Typography level="h2">2</Typography>
+                <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+                  Need Retry
+                </Typography>
+              </Box>
+            </Box>
+          </Card>
+        </Box>
 
-        <div
-          className="bg-white rounded-md border border-neutral-200 overflow-hidden"
-        >
-          <div className="grid grid-cols-12 gap-3 px-5 py-3 bg-neutral-50 border-b border-neutral-200 text-xs text-neutral-600">
-            <div className="col-span-6">Simulation</div>
-            <div className="col-span-2">Industry</div>
-            <div className="col-span-2">Completed</div>
-            <div className="col-span-2 text-right">Score</div>
-          </div>
+        <Card variant="outlined" sx={{ overflow: 'hidden' }}>
+          <Box sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: '6fr 2fr 2fr 2fr', 
+            gap: 1.5, 
+            px: 2.5, 
+            py: 1.5, 
+            bgcolor: 'background.level1',
+            borderBottom: '1px solid',
+            borderColor: 'divider'
+          }}>
+            <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Simulation</Typography>
+            <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Industry</Typography>
+            <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Completed</Typography>
+            <Typography level="body-xs" sx={{ color: 'text.secondary', textAlign: 'right' }}>Score</Typography>
+          </Box>
 
-          <div className="divide-y divide-neutral-100">
-            {completedSims.map((sim, index) => (
-              <div key={sim.id}>
-                <div
-                  className="grid grid-cols-12 gap-3 px-5 py-3 items-center transition-colors cursor-pointer hover:bg-neutral-50"
+          <Box sx={{ 
+            '& > *:not(:last-child)': { 
+              borderBottom: '1px solid', 
+              borderColor: 'divider' 
+            } 
+          }}>
+            {completedSims.map((sim) => (
+              <Box key={sim.id}>
+                <Box
                   onClick={() => toggleRow(sim.id)}
+                  sx={{ 
+                    display: 'grid', 
+                    gridTemplateColumns: '6fr 2fr 2fr 2fr', 
+                    gap: 1.5, 
+                    px: 2.5, 
+                    py: 1.5, 
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      bgcolor: 'background.level1'
+                    }
+                  }}
                 >
-                  <div className="col-span-6 flex items-center gap-2">
-                    <div>
-                      <ChevronDown className="w-4 h-4 text-neutral-400" />
-                    </div>
-                    <h3 className="text-sm text-neutral-900">{sim.title}</h3>
-                  </div>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <ChevronDown size={16} style={{ opacity: 0.4 }} />
+                    <Typography level="body-sm">{sim.title}</Typography>
+                  </Box>
 
-                  <div className="col-span-2">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-100 text-neutral-700">
+                  <Box>
+                    <Chip size="sm" variant="soft" color="neutral">
                       {sim.industry}
-                    </span>
-                  </div>
+                    </Chip>
+                  </Box>
 
-                  <div className="col-span-2">
-                    <p className="text-xs text-neutral-500">{sim.completedDate}</p>
-                  </div>
+                  <Box>
+                    <Typography level="body-xs" sx={{ color: 'text.secondary' }}>
+                      {sim.completedDate}
+                    </Typography>
+                  </Box>
 
-                  <div className="col-span-2 flex items-center justify-end gap-2">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-sm ${getScoreColor(sim.score, sim.passingScore)}`}>
-                      {getScoreIcon(sim.score, sim.passingScore)}
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 1 }}>
+                    <Chip 
+                      size="sm" 
+                      variant="soft" 
+                      color="neutral"
+                      startDecorator={sim.score >= sim.passingScore ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
+                    >
                       {sim.score}%
-                    </span>
-                  </div>
-                </div>
+                    </Chip>
+                  </Box>
+                </Box>
 
                 {expandedRow === sim.id && (
-                  <div
-                    className="border-t border-neutral-100 bg-neutral-50/50"
-                  >
-                    <div className="px-5 py-5">
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="text-sm text-neutral-900 mb-3 flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4 text-neutral-700" />
+                  <Box sx={{ 
+                    borderTop: '1px solid', 
+                    borderColor: 'divider',
+                    bgcolor: 'background.level1'
+                  }}>
+                    <Box sx={{ px: 2.5, py: 2.5 }}>
+                      <Box sx={{ 
+                        display: 'grid', 
+                        gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, 
+                        gap: 3 
+                      }}>
+                        <Box>
+                          <Typography level="body-sm" sx={{ mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <CheckCircle size={16} />
                             Strengths
-                          </h4>
-                          <ul className="space-y-2">
+                          </Typography>
+                          <Box component="ul" sx={{ m: 0, pl: 2.5, display: 'flex', flexDirection: 'column', gap: 1 }}>
                             {sim.feedback.strengths.map((strength, i) => (
-                              <li key={i} className="text-sm text-neutral-700 pl-5 relative before:content-['•'] before:absolute before:left-0 before:text-neutral-600">
+                              <Typography key={i} component="li" level="body-sm" sx={{ color: 'text.secondary' }}>
                                 {strength}
-                              </li>
+                              </Typography>
                             ))}
-                          </ul>
-                        </div>
+                          </Box>
+                        </Box>
 
-                        <div>
-                          <h4 className="text-sm text-neutral-900 mb-3 flex items-center gap-2">
-                            <AlertCircle className="w-4 h-4 text-neutral-700" />
+                        <Box>
+                          <Typography level="body-sm" sx={{ mb: 1.5, display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <AlertCircle size={16} />
                             Areas for Improvement
-                          </h4>
-                          <ul className="space-y-2">
+                          </Typography>
+                          <Box component="ul" sx={{ m: 0, pl: 2.5, display: 'flex', flexDirection: 'column', gap: 1 }}>
                             {sim.feedback.improvements.map((improvement, i) => (
-                              <li key={i} className="text-sm text-neutral-700 pl-5 relative before:content-['•'] before:absolute before:left-0 before:text-neutral-600">
+                              <Typography key={i} component="li" level="body-sm" sx={{ color: 'text.secondary' }}>
                                 {improvement}
-                              </li>
+                              </Typography>
                             ))}
-                          </ul>
-                        </div>
-                      </div>
+                          </Box>
+                        </Box>
+                      </Box>
 
-                      <div className="mt-5 pt-5 border-t border-neutral-200">
-                        <h4 className="text-sm text-neutral-900 mb-2">Next Steps</h4>
-                        <p className="text-sm text-neutral-600 mb-4">{sim.feedback.nextSteps}</p>
+                      <Box sx={{ mt: 2.5, pt: 2.5, borderTop: '1px solid', borderColor: 'divider' }}>
+                        <Typography level="body-sm" sx={{ mb: 1 }}>Next Steps</Typography>
+                        <Typography level="body-sm" sx={{ color: 'text.secondary', mb: 2 }}>
+                          {sim.feedback.nextSteps}
+                        </Typography>
 
                         {sim.score < sim.passingScore ? (
-                          <button
+                          <Button
                             onClick={(e) => {
                               e.stopPropagation();
                               onRunSimulation?.(sim.id);
                             }}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 hover:bg-neutral-800 text-white rounded-md text-sm transition-all"
+                            startDecorator={<RefreshCw size={16} />}
+                            color="neutral"
+                            variant="solid"
+                            size="sm"
+                            sx={{
+                              bgcolor: 'neutral.900',
+                              '&:hover': {
+                                bgcolor: 'neutral.800'
+                              }
+                            }}
                           >
-                            <RefreshCw className="w-4 h-4" />
                             Retake Simulation
-                          </button>
+                          </Button>
                         ) : (
-                          <button
+                          <Button
                             onClick={(e) => {
                               e.stopPropagation();
                               onRunSimulation?.(sim.id);
                             }}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-900 rounded-md text-sm transition-all"
+                            startDecorator={<Play size={16} />}
+                            color="neutral"
+                            variant="soft"
+                            size="sm"
                           >
-                            <Play className="w-4 h-4" />
                             Practice Again
-                          </button>
+                          </Button>
                         )}
-                      </div>
-                    </div>
-                  </div>
+                      </Box>
+                    </Box>
+                  </Box>
                 )}
-              </div>
+              </Box>
             ))}
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Card>
+      </Box>
     );
   }
 
@@ -395,24 +478,17 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
     },
   ];
 
-  const getStatusBadge = (status: string, trend: string) => {
+  const getStatusChip = (status: string, trend: string) => {
     if (status === 'active' && parseFloat(trend) > 0) {
-      return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-700 text-white">Active</span>;
+      return <Chip size="sm" variant="solid" color="neutral">Active</Chip>;
     }
     if (status === 'active') {
-      return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-200 text-neutral-700">Active</span>;
+      return <Chip size="sm" variant="soft" color="neutral">Active</Chip>;
     }
     if (status === 'needs-attention') {
-      return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-400 text-white">Needs Attention</span>;
+      return <Chip size="sm" variant="solid" color="neutral" sx={{ bgcolor: 'neutral.500' }}>Needs Attention</Chip>;
     }
-    return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-neutral-100 text-neutral-600">Inactive</span>;
-  };
-
-  const getScoreBadgeColor = (score: number) => {
-    if (score >= 90) return 'text-neutral-700 bg-neutral-100';
-    if (score >= 80) return 'text-neutral-700 bg-neutral-100';
-    if (score >= 70) return 'text-neutral-600 bg-neutral-50';
-    return 'text-neutral-700 bg-neutral-100';
+    return <Chip size="sm" variant="soft" color="neutral">Inactive</Chip>;
   };
 
   const activeEmployees = employees.filter(e => e.status === 'active').length;
@@ -421,188 +497,283 @@ export function Analytics({ userRole, onRunSimulation }: AnalyticsProps) {
   const totalSimsCompleted = employees.reduce((acc, e) => acc + e.totalSims, 0);
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <div
-        className="mb-6"
-      >
-        <h1 className="text-2xl text-neutral-900 mb-2">Team Analytics</h1>
-        <p className="text-sm text-neutral-600">Monitor employee performance and platform usage</p>
-      </div>
+    <Box sx={{ p: 4, maxWidth: '1400px', mx: 'auto' }}>
+      <Box sx={{ mb: 3 }}>
+        <Typography level="h2" sx={{ mb: 0.5 }}>
+          Team Analytics
+        </Typography>
+        <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+          Monitor employee performance and platform usage
+        </Typography>
+      </Box>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div
-          className="bg-neutral-900 rounded-md p-5 text-white"
+      <Box sx={{ 
+        display: 'grid', 
+        gridTemplateColumns: { xs: '1fr', md: 'repeat(4, 1fr)' }, 
+        gap: 2, 
+        mb: 3 
+      }}>
+        <Card 
+          variant="solid" 
+          sx={{ 
+            p: 2.5, 
+            bgcolor: 'neutral.900',
+            color: 'white'
+          }}
         >
-          <div className="flex items-center justify-between mb-2">
-            <TrendingUp className="w-7 h-7 text-neutral-400" />
-            <span className="text-xs bg-neutral-800 px-2 py-1 rounded-full">Team Avg</span>
-          </div>
-          <p className="text-3xl mb-1">{avgTeamScore}%</p>
-          <p className="text-neutral-400 text-sm">Average Score</p>
-        </div>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+            <TrendingUp size={28} style={{ opacity: 0.4 }} />
+            <Chip size="sm" variant="soft" sx={{ bgcolor: 'rgba(255,255,255,0.1)' }}>
+              Team Avg
+            </Chip>
+          </Box>
+          <Typography level="h1" sx={{ mb: 0.5 }}>{avgTeamScore}%</Typography>
+          <Typography level="body-sm" sx={{ opacity: 0.7 }}>Average Score</Typography>
+        </Card>
 
-        <div
-          className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
-              <Target className="w-5 h-5 text-neutral-700" />
-            </div>
-            <div>
-              <p className="text-2xl text-neutral-900">{totalSimsCompleted}</p>
-              <p className="text-sm text-neutral-500">Total Completions</p>
-            </div>
-          </div>
-        </div>
+        <Card variant="outlined" sx={{ p: 2.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Sheet
+              variant="soft"
+              color="neutral"
+              sx={{
+                width: 40,
+                height: 40,
+                borderRadius: 'sm',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Target size={20} />
+            </Sheet>
+            <Box>
+              <Typography level="h2">{totalSimsCompleted}</Typography>
+              <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+                Total Completions
+              </Typography>
+            </Box>
+          </Box>
+        </Card>
 
-        <div
-          className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
-              <CheckCircle className="w-5 h-5 text-neutral-700" />
-            </div>
-            <div>
-              <p className="text-2xl text-neutral-900">{activeEmployees}</p>
-              <p className="text-sm text-neutral-500">Active Users</p>
-            </div>
-          </div>
-        </div>
+        <Card variant="outlined" sx={{ p: 2.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Sheet
+              variant="soft"
+              color="neutral"
+              sx={{
+                width: 40,
+                height: 40,
+                borderRadius: 'sm',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <CheckCircle size={20} />
+            </Sheet>
+            <Box>
+              <Typography level="h2">{activeEmployees}</Typography>
+              <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+                Active Users
+              </Typography>
+            </Box>
+          </Box>
+        </Card>
 
-        <div
-          className="bg-neutral-50 rounded-md p-5 border border-neutral-200"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
-              <AlertCircle className="w-5 h-5 text-neutral-700" />
-            </div>
-            <div>
-              <p className="text-2xl text-neutral-900">{needsAttention}</p>
-              <p className="text-sm text-neutral-500">Need Attention</p>
-            </div>
-          </div>
-        </div>
-      </div>
+        <Card variant="outlined" sx={{ p: 2.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Sheet
+              variant="soft"
+              color="neutral"
+              sx={{
+                width: 40,
+                height: 40,
+                borderRadius: 'sm',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <AlertCircle size={20} />
+            </Sheet>
+            <Box>
+              <Typography level="h2">{needsAttention}</Typography>
+              <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+                Need Attention
+              </Typography>
+            </Box>
+          </Box>
+        </Card>
+      </Box>
 
-      <div
-        className="bg-white rounded-md p-4 border border-neutral-200 mb-4"
-      >
-        <div className="flex items-center gap-3">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
-            <input
-              type="text"
-              placeholder="Search employees..."
-              className="w-full pl-10 pr-3 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all"
-            />
-          </div>
-          <select className="px-4 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-400 transition-all cursor-pointer">
-            <option>All Employees</option>
-            <option>Active Only</option>
-            <option>Needs Attention</option>
-            <option>Inactive</option>
-          </select>
-          <select className="px-4 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-400 transition-all cursor-pointer">
-            <option>Last 30 Days</option>
-            <option>Last 7 Days</option>
-            <option>Last 90 Days</option>
-            <option>All Time</option>
-          </select>
-        </div>
-      </div>
+      <Card variant="outlined" sx={{ p: 2, mb: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <Input
+            placeholder="Search employees..."
+            startDecorator={<Search size={16} />}
+            sx={{ flex: 1 }}
+            size="sm"
+          />
+          <Select size="sm" defaultValue="all" sx={{ minWidth: 150 }}>
+            <Option value="all">All Employees</Option>
+            <Option value="active">Active Only</Option>
+            <Option value="attention">Needs Attention</Option>
+            <Option value="inactive">Inactive</Option>
+          </Select>
+          <Select size="sm" defaultValue="30" sx={{ minWidth: 140 }}>
+            <Option value="30">Last 30 Days</Option>
+            <Option value="7">Last 7 Days</Option>
+            <Option value="90">Last 90 Days</Option>
+            <Option value="all">All Time</Option>
+          </Select>
+        </Box>
+      </Card>
 
-      <div
-        className="bg-white rounded-md border border-neutral-200 overflow-hidden"
-      >
-        <div className="grid grid-cols-12 gap-3 px-5 py-3 bg-neutral-50 border-b border-neutral-200 text-xs text-neutral-600">
-          <div className="col-span-4">Employee</div>
-          <div className="col-span-2">Completed</div>
-          <div className="col-span-2">Avg Score</div>
-          <div className="col-span-2">Last Active</div>
-          <div className="col-span-2 text-right">Status</div>
-        </div>
+      <Card variant="outlined" sx={{ overflow: 'hidden' }}>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: '4fr 2fr 2fr 2fr 2fr', 
+          gap: 1.5, 
+          px: 2.5, 
+          py: 1.5, 
+          bgcolor: 'background.level1',
+          borderBottom: '1px solid',
+          borderColor: 'divider'
+        }}>
+          <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Employee</Typography>
+          <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Completed</Typography>
+          <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Avg Score</Typography>
+          <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Last Active</Typography>
+          <Typography level="body-xs" sx={{ color: 'text.secondary', textAlign: 'right' }}>Status</Typography>
+        </Box>
 
-        <div className="divide-y divide-neutral-100">
-          {employees.map((employee, index) => (
-            <div key={employee.id}>
-              <div
-                className="grid grid-cols-12 gap-3 px-5 py-3 items-center transition-colors cursor-pointer hover:bg-neutral-50"
+        <Box sx={{ 
+          '& > *:not(:last-child)': { 
+            borderBottom: '1px solid', 
+            borderColor: 'divider' 
+          } 
+        }}>
+          {employees.map((employee) => (
+            <Box key={employee.id}>
+              <Box
                 onClick={() => toggleRow(employee.id)}
+                sx={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: '4fr 2fr 2fr 2fr 2fr', 
+                  gap: 1.5, 
+                  px: 2.5, 
+                  py: 1.5, 
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    bgcolor: 'background.level1'
+                  }
+                }}
               >
-                <div className="col-span-4 flex items-center gap-2">
-                  <div>
-                    <ChevronDown className="w-4 h-4 text-neutral-400" />
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-neutral-700 flex items-center justify-center text-white text-sm flex-shrink-0">
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
+                  <ChevronDown size={16} style={{ opacity: 0.4 }} />
+                  <Avatar size="sm" sx={{ bgcolor: 'neutral.700' }}>
                     {employee.name.split(' ').map(n => n[0]).join('')}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="text-sm text-neutral-900 truncate">{employee.name}</h3>
-                    <p className="text-xs text-neutral-500 truncate">{employee.role}</p>
-                  </div>
-                </div>
+                  </Avatar>
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography level="body-sm" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {employee.name}
+                    </Typography>
+                    <Typography level="body-xs" sx={{ color: 'text.tertiary', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {employee.role}
+                    </Typography>
+                  </Box>
+                </Box>
 
-                <div className="col-span-2">
-                  <p className="text-sm text-neutral-900">{employee.totalSims} sims</p>
-                </div>
+                <Box>
+                  <Typography level="body-sm">{employee.totalSims} sims</Typography>
+                </Box>
 
-                <div className="col-span-2">
-                  <div className="flex items-center gap-2">
-                    <span className={`inline-flex items-center px-2.5 py-1 rounded text-sm ${getScoreBadgeColor(employee.avgScore)}`}>
-                      {employee.avgScore}%
-                    </span>
-                    <span className={`text-xs ${parseFloat(employee.trend) > 0 ? 'text-neutral-700' : parseFloat(employee.trend) < 0 ? 'text-neutral-500' : 'text-neutral-400'}`}>
-                      {employee.trend}
-                    </span>
-                  </div>
-                </div>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Chip size="sm" variant="soft" color="neutral">
+                    {employee.avgScore}%
+                  </Chip>
+                  <Typography 
+                    level="body-xs" 
+                    sx={{ 
+                      color: parseFloat(employee.trend) > 0 ? 'text.primary' : parseFloat(employee.trend) < 0 ? 'text.tertiary' : 'text.secondary' 
+                    }}
+                  >
+                    {employee.trend}
+                  </Typography>
+                </Box>
 
-                <div className="col-span-2">
-                  <p className="text-xs text-neutral-500">{employee.lastActive}</p>
-                </div>
+                <Box>
+                  <Typography level="body-xs" sx={{ color: 'text.secondary' }}>
+                    {employee.lastActive}
+                  </Typography>
+                </Box>
 
-                <div className="col-span-2 flex justify-end">
-                  {getStatusBadge(employee.status, employee.trend)}
-                </div>
-              </div>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  {getStatusChip(employee.status, employee.trend)}
+                </Box>
+              </Box>
 
               {expandedRow === employee.id && (
-                <div
-                  className="border-t border-neutral-100 bg-neutral-50/50"
-                >
-                  <div className="px-5 py-4">
-                    <h4 className="text-sm text-neutral-900 mb-3">Recent Activity</h4>
-                    <div className="space-y-2">
+                <Box sx={{ 
+                  borderTop: '1px solid', 
+                  borderColor: 'divider',
+                  bgcolor: 'background.level1'
+                }}>
+                  <Box sx={{ px: 2.5, py: 2 }}>
+                    <Typography level="body-sm" sx={{ mb: 1.5 }}>Recent Activity</Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                       {employee.recentSims.map((sim, i) => (
-                        <div key={i} className="flex items-center justify-between p-3 bg-white rounded-md border border-neutral-200">
-                          <div className="flex-1">
-                            <p className="text-sm text-neutral-900">{sim.title}</p>
-                            <p className="text-xs text-neutral-500">{sim.date}</p>
-                          </div>
-                          <span className={`inline-flex items-center px-2.5 py-1 rounded text-sm ${getScoreBadgeColor(sim.score)}`}>
-                            {sim.score}%
-                          </span>
-                        </div>
+                        <Card key={i} variant="outlined" sx={{ p: 1.5 }}>
+                          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <Box sx={{ flex: 1 }}>
+                              <Typography level="body-sm">{sim.title}</Typography>
+                              <Typography level="body-xs" sx={{ color: 'text.secondary' }}>
+                                {sim.date}
+                              </Typography>
+                            </Box>
+                            <Chip size="sm" variant="soft" color="neutral">
+                              {sim.score}%
+                            </Chip>
+                          </Box>
+                        </Card>
                       ))}
-                    </div>
+                    </Box>
 
-                    <div className="flex items-center gap-2 mt-4 pt-4 border-t border-neutral-200">
-                      <button className="text-sm text-neutral-700 hover:text-neutral-900 flex items-center gap-1 transition-colors">
-                        View Full History <ChevronRight className="w-3 h-3" />
-                      </button>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2, pt: 2, borderTop: '1px solid', borderColor: 'divider' }}>
+                      <Button
+                        variant="plain"
+                        color="neutral"
+                        size="sm"
+                        endDecorator={<ChevronRight size={12} />}
+                      >
+                        View Full History
+                      </Button>
                       {(employee.status === 'needs-attention' || employee.avgScore < 75) && (
-                        <button className="ml-auto text-sm px-3 py-1.5 bg-neutral-900 hover:bg-neutral-800 text-white rounded-md transition-all">
+                        <Button
+                          variant="solid"
+                          color="neutral"
+                          size="sm"
+                          sx={{ 
+                            ml: 'auto',
+                            bgcolor: 'neutral.900',
+                            '&:hover': {
+                              bgcolor: 'neutral.800'
+                            }
+                          }}
+                        >
                           Schedule Coaching
-                        </button>
+                        </Button>
                       )}
-                    </div>
-                  </div>
-                </div>
+                    </Box>
+                  </Box>
+                </Box>
               )}
-            </div>
+            </Box>
           ))}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Card>
+    </Box>
   );
 }

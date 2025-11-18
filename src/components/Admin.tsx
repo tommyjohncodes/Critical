@@ -1,4 +1,13 @@
 import { Users, BookOpen, TrendingUp, BarChart2, Plus, Search, MoreVertical } from "lucide-react";
+import Box from '@mui/joy/Box';
+import Card from '@mui/joy/Card';
+import Typography from '@mui/joy/Typography';
+import Sheet from '@mui/joy/Sheet';
+import Button from '@mui/joy/Button';
+import IconButton from '@mui/joy/IconButton';
+import Input from '@mui/joy/Input';
+import Chip from '@mui/joy/Chip';
+import LinearProgress from '@mui/joy/LinearProgress';
 
 export function Admin() {
   const teamStats = [
@@ -25,198 +34,294 @@ export function Admin() {
   ];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      {/* Header */}
-      <div
-        className="flex items-center justify-between mb-8"
-      >
-        <div>
-          <h1 className="text-2xl text-neutral-900 mb-2">Admin Panel</h1>
-          <p className="text-neutral-600">Manage users, track progress, and view organization-wide reports</p>
-        </div>
-        <button
-          className="px-6 py-3 text-white rounded-md shadow-sm transition-all flex items-center gap-2"
-          style={{ backgroundColor: '#6082B6' }}
-          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5070A0'}
-          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#6082B6'}
+    <Box sx={{ p: 4, maxWidth: '1400px', mx: 'auto' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+        <Box>
+          <Typography level="h2" sx={{ mb: 0.5 }}>
+            Admin Panel
+          </Typography>
+          <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+            Manage users, track progress, and view organization-wide reports
+          </Typography>
+        </Box>
+        <Button
+          startDecorator={<Plus size={16} />}
+          sx={{ 
+            bgcolor: '#6082B6',
+            '&:hover': {
+              bgcolor: '#5070A0'
+            }
+          }}
         >
-          <Plus className="w-4 h-4" />
           Add User
-        </button>
-      </div>
+        </Button>
+      </Box>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {teamStats.map((stat, index) => {
+      <Box sx={{ 
+        display: 'grid', 
+        gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', lg: 'repeat(4, 1fr)' }, 
+        gap: 3, 
+        mb: 4 
+      }}>
+        {teamStats.map((stat) => {
           const Icon = stat.icon;
           return (
-            <div
-              key={stat.label}
-              className="bg-white rounded-lg p-6 border border-neutral-200 shadow-sm hover:shadow-md transition-all"
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-md bg-neutral-100 flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-neutral-600" />
-                </div>
-                <span className="text-xs text-neutral-600 bg-neutral-100 px-2 py-1 rounded-full">
+            <Card key={stat.label} variant="outlined" sx={{ p: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
+                <Sheet
+                  variant="soft"
+                  color="neutral"
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 'sm',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Icon size={24} />
+                </Sheet>
+                <Chip size="sm" variant="soft" color="neutral">
                   {stat.change}
-                </span>
-              </div>
-              <p className="text-2xl text-neutral-900 mb-1">{stat.value}</p>
-              <p className="text-sm text-neutral-500">{stat.label}</p>
-            </div>
+                </Chip>
+              </Box>
+              <Typography level="h2" sx={{ mb: 0.5 }}>{stat.value}</Typography>
+              <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+                {stat.label}
+              </Typography>
+            </Card>
           );
         })}
-      </div>
+      </Box>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        {/* User Management */}
-        <div
-          className="lg:col-span-2 bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden"
-        >
-          <div className="p-6 border-b border-neutral-200">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl text-neutral-900">User Management</h2>
-            </div>
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-              <input
-                type="text"
-                placeholder="Search users..."
-                className="w-full pl-12 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-transparent transition-all"
-              />
-            </div>
-          </div>
+      <Box sx={{ 
+        display: 'grid', 
+        gridTemplateColumns: { xs: '1fr', lg: '2fr 1fr' }, 
+        gap: 3, 
+        mb: 4 
+      }}>
+        <Card variant="outlined" sx={{ overflow: 'hidden' }}>
+          <Box sx={{ p: 3, borderBottom: '1px solid', borderColor: 'divider' }}>
+            <Typography level="title-lg" sx={{ mb: 2 }}>
+              User Management
+            </Typography>
+            <Input
+              placeholder="Search users..."
+              startDecorator={<Search size={20} />}
+              size="lg"
+            />
+          </Box>
 
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-neutral-50 border-b border-neutral-200">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs text-neutral-600">User</th>
-                  <th className="px-6 py-3 text-left text-xs text-neutral-600">Role</th>
-                  <th className="px-6 py-3 text-left text-xs text-neutral-600">Sessions</th>
-                  <th className="px-6 py-3 text-left text-xs text-neutral-600">Avg Score</th>
-                  <th className="px-6 py-3 text-left text-xs text-neutral-600">Status</th>
-                  <th className="px-6 py-3 text-left text-xs text-neutral-600"></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-200">
-                {users.map((user, index) => (
-                  <tr
-                    key={user.id}
-                    className="hover:bg-neutral-50 transition-colors"
-                  >
-                    <td className="px-6 py-4">
-                      <div>
-                        <p className="text-sm text-neutral-900">{user.name}</p>
-                        <p className="text-xs text-neutral-500">{user.email}</p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-neutral-100 text-neutral-700">
+          <Box sx={{ overflowX: 'auto' }}>
+            <Box component="table" sx={{ width: '100%', borderCollapse: 'collapse' }}>
+              <Box component="thead" sx={{ bgcolor: 'background.level1', borderBottom: '1px solid', borderColor: 'divider' }}>
+                <Box component="tr">
+                  <Box component="th" sx={{ px: 3, py: 1.5, textAlign: 'left' }}>
+                    <Typography level="body-xs" sx={{ color: 'text.secondary' }}>User</Typography>
+                  </Box>
+                  <Box component="th" sx={{ px: 3, py: 1.5, textAlign: 'left' }}>
+                    <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Role</Typography>
+                  </Box>
+                  <Box component="th" sx={{ px: 3, py: 1.5, textAlign: 'left' }}>
+                    <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Sessions</Typography>
+                  </Box>
+                  <Box component="th" sx={{ px: 3, py: 1.5, textAlign: 'left' }}>
+                    <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Avg Score</Typography>
+                  </Box>
+                  <Box component="th" sx={{ px: 3, py: 1.5, textAlign: 'left' }}>
+                    <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Status</Typography>
+                  </Box>
+                  <Box component="th" sx={{ px: 3, py: 1.5, textAlign: 'left' }}>
+                    <Typography level="body-xs" sx={{ color: 'text.secondary' }}></Typography>
+                  </Box>
+                </Box>
+              </Box>
+              <Box component="tbody" sx={{ 
+                '& > tr': {
+                  borderBottom: '1px solid',
+                  borderColor: 'divider',
+                  '&:hover': {
+                    bgcolor: 'background.level1'
+                  }
+                }
+              }}>
+                {users.map((user) => (
+                  <Box component="tr" key={user.id}>
+                    <Box component="td" sx={{ px: 3, py: 2 }}>
+                      <Box>
+                        <Typography level="body-sm">{user.name}</Typography>
+                        <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
+                          {user.email}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box component="td" sx={{ px: 3, py: 2 }}>
+                      <Chip size="sm" variant="soft" color="neutral">
                         {user.role}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-neutral-900">{user.sessions}</td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-neutral-900">{user.avgScore}%</span>
-                        <div className="w-16 bg-neutral-200 rounded-full h-1.5">
-                          <div
-                            className="bg-neutral-700 h-1.5 rounded-full"
-                            style={{ width: `${user.avgScore}%` }}
+                      </Chip>
+                    </Box>
+                    <Box component="td" sx={{ px: 3, py: 2 }}>
+                      <Typography level="body-sm">{user.sessions}</Typography>
+                    </Box>
+                    <Box component="td" sx={{ px: 3, py: 2 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Typography level="body-sm">{user.avgScore}%</Typography>
+                        <Box sx={{ width: 64 }}>
+                          <LinearProgress
+                            determinate
+                            value={user.avgScore}
+                            size="sm"
+                            color="neutral"
                           />
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-neutral-100 text-neutral-700">
+                        </Box>
+                      </Box>
+                    </Box>
+                    <Box component="td" sx={{ px: 3, py: 2 }}>
+                      <Chip size="sm" variant="soft" color="neutral">
                         {user.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <button className="text-neutral-400 hover:text-neutral-600 transition-colors">
-                        <MoreVertical className="w-4 h-4" />
-                      </button>
-                    </td>
-                  </tr>
+                      </Chip>
+                    </Box>
+                    <Box component="td" sx={{ px: 3, py: 2 }}>
+                      <IconButton size="sm" variant="plain" color="neutral">
+                        <MoreVertical size={16} />
+                      </IconButton>
+                    </Box>
+                  </Box>
                 ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              </Box>
+            </Box>
+          </Box>
+        </Card>
 
-        {/* Department Stats */}
-        <div
-          className="bg-white rounded-lg p-6 border border-neutral-200 shadow-sm"
-        >
-          <h2 className="text-xl text-neutral-900 mb-1">Department Performance</h2>
-          <p className="text-sm text-neutral-500 mb-6">Team statistics by department</p>
+        <Card variant="outlined" sx={{ p: 3 }}>
+          <Typography level="title-lg" sx={{ mb: 0.5 }}>
+            Department Performance
+          </Typography>
+          <Typography level="body-sm" sx={{ color: 'text.secondary', mb: 3 }}>
+            Team statistics by department
+          </Typography>
 
-          <div className="space-y-4">
-            {departments.map((dept, index) => (
-              <div
-                key={dept.name}
-                className="p-4 rounded-md border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50 transition-all"
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {departments.map((dept) => (
+              <Card 
+                key={dept.name} 
+                variant="outlined"
+                sx={{ 
+                  p: 2,
+                  '&:hover': {
+                    borderColor: 'neutral.outlinedHoverBorder',
+                    bgcolor: 'background.level1'
+                  }
+                }}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm text-neutral-900">{dept.name}</h3>
-                  <span className="text-xs text-neutral-500">{dept.users} users</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-neutral-600">Avg Score</span>
-                    <span className="text-neutral-900">{dept.avgScore}%</span>
-                  </div>
-                  <div className="w-full bg-neutral-200 rounded-full h-1.5">
-                    <div
-                      className="bg-neutral-700 h-1.5 rounded-full"
-                      style={{ width: `${dept.avgScore}%` }}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-neutral-600">Completion</span>
-                    <span className="text-neutral-900">{dept.completionRate}%</span>
-                  </div>
-                </div>
-              </div>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1.5 }}>
+                  <Typography level="body-sm">{dept.name}</Typography>
+                  <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>
+                    {dept.users} users
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Typography level="body-xs" sx={{ color: 'text.secondary' }}>
+                      Avg Score
+                    </Typography>
+                    <Typography level="body-xs">{dept.avgScore}%</Typography>
+                  </Box>
+                  <LinearProgress
+                    determinate
+                    value={dept.avgScore}
+                    size="sm"
+                    color="neutral"
+                  />
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Typography level="body-xs" sx={{ color: 'text.secondary' }}>
+                      Completion
+                    </Typography>
+                    <Typography level="body-xs">{dept.completionRate}%</Typography>
+                  </Box>
+                </Box>
+              </Card>
             ))}
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Card>
+      </Box>
 
-      {/* Training Assignments */}
-      <div
-        className="bg-neutral-900 rounded-lg p-6 text-white shadow-sm"
+      <Card 
+        variant="solid" 
+        sx={{ 
+          p: 3, 
+          bgcolor: 'neutral.900',
+          color: 'white'
+        }}
       >
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="text-xl mb-1">Assign Training Modules</h2>
-            <p className="text-neutral-300 text-sm">Create custom training plans for teams or individuals</p>
-          </div>
-          <button
-            className="px-6 py-3 bg-white text-neutral-900 rounded-md shadow-sm hover:bg-neutral-100 transition-all flex items-center gap-2"
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
+          <Box>
+            <Typography level="title-lg" sx={{ mb: 0.5 }}>
+              Assign Training Modules
+            </Typography>
+            <Typography level="body-sm" sx={{ opacity: 0.7 }}>
+              Create custom training plans for teams or individuals
+            </Typography>
+          </Box>
+          <Button
+            startDecorator={<Plus size={16} />}
+            variant="solid"
+            sx={{
+              bgcolor: 'white',
+              color: 'neutral.900',
+              '&:hover': {
+                bgcolor: 'neutral.100'
+              }
+            }}
           >
-            <Plus className="w-4 h-4" />
             New Assignment
-          </button>
-        </div>
+          </Button>
+        </Box>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-neutral-800 rounded-md p-4 border border-neutral-700">
-            <p className="text-sm text-neutral-300 mb-1">Pending Assignments</p>
-            <p className="text-2xl">12</p>
-          </div>
-          <div className="bg-neutral-800 rounded-md p-4 border border-neutral-700">
-            <p className="text-sm text-neutral-300 mb-1">In Progress</p>
-            <p className="text-2xl">8</p>
-          </div>
-          <div className="bg-neutral-800 rounded-md p-4 border border-neutral-700">
-            <p className="text-sm text-neutral-300 mb-1">Completed</p>
-            <p className="text-2xl">24</p>
-          </div>
-        </div>
-      </div>
-    </div>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, 
+          gap: 2 
+        }}>
+          <Box sx={{ 
+            bgcolor: 'rgba(255,255,255,0.05)', 
+            borderRadius: 'sm', 
+            p: 2,
+            border: '1px solid',
+            borderColor: 'rgba(255,255,255,0.1)'
+          }}>
+            <Typography level="body-sm" sx={{ opacity: 0.7, mb: 0.5 }}>
+              Pending Assignments
+            </Typography>
+            <Typography level="h2">12</Typography>
+          </Box>
+          <Box sx={{ 
+            bgcolor: 'rgba(255,255,255,0.05)', 
+            borderRadius: 'sm', 
+            p: 2,
+            border: '1px solid',
+            borderColor: 'rgba(255,255,255,0.1)'
+          }}>
+            <Typography level="body-sm" sx={{ opacity: 0.7, mb: 0.5 }}>
+              In Progress
+            </Typography>
+            <Typography level="h2">8</Typography>
+          </Box>
+          <Box sx={{ 
+            bgcolor: 'rgba(255,255,255,0.05)', 
+            borderRadius: 'sm', 
+            p: 2,
+            border: '1px solid',
+            borderColor: 'rgba(255,255,255,0.1)'
+          }}>
+            <Typography level="body-sm" sx={{ opacity: 0.7, mb: 0.5 }}>
+              Completed
+            </Typography>
+            <Typography level="h2">24</Typography>
+          </Box>
+        </Box>
+      </Card>
+    </Box>
   );
 }

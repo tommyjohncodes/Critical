@@ -1,5 +1,13 @@
 import { Pause, Play, RotateCcw, X, Mic, MicOff, Volume2 } from "lucide-react";
 import { useState, useEffect } from "react";
+import Box from '@mui/joy/Box';
+import Typography from '@mui/joy/Typography';
+import Button from '@mui/joy/Button';
+import IconButton from '@mui/joy/IconButton';
+import Card from '@mui/joy/Card';
+import Sheet from '@mui/joy/Sheet';
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
 
 interface VoiceSessionProps {
   simulationId: string;
@@ -15,7 +23,6 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
   const [showCompletion, setShowCompletion] = useState(false);
   const [waveformBars] = useState(Array.from({ length: 40 }, () => Math.random() * 100));
 
-  // Mock simulation data
   const simData = {
     '1': { title: 'Emergency Medical Triage', scenario: 'A patient\'s family member is demanding immediate care for a non-urgent condition while the ER is handling critical cases.' },
     '2': { title: 'Insurance Claim Denial', scenario: 'A policyholder is upset about a denied claim and is threatening to cancel their policy and leave negative reviews.' },
@@ -60,189 +67,275 @@ export function VoiceSession({ simulationId, onEnd, onComplete }: VoiceSessionPr
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 p-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div
-          className="flex items-center justify-between mb-6"
-        >
-          <div>
-            <h1 className="text-2xl text-neutral-900 mb-1">{currentSim.title}</h1>
-            <p className="text-sm text-neutral-600">{currentSim.scenario}</p>
-          </div>
-          <button
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.level1', p: { xs: 2, md: 4 } }}>
+      <Box sx={{ maxWidth: '1400px', mx: 'auto' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
+          <Box>
+            <Typography level="h3" sx={{ mb: 0.5 }}>{currentSim.title}</Typography>
+            <Typography level="body-sm" sx={{ color: 'text.secondary' }}>{currentSim.scenario}</Typography>
+          </Box>
+          <Button
             onClick={handleEnd}
-            className="px-4 py-2 bg-white border border-neutral-200 rounded-md text-sm text-neutral-600 hover:bg-neutral-50 transition-all flex items-center gap-2"
+            variant="outlined"
+            color="neutral"
+            size="sm"
+            startDecorator={<X size={16} />}
           >
-            <X className="w-4 h-4" />
             End Session
-          </button>
-        </div>
+          </Button>
+        </Box>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Voice Interface */}
-          <div
-            className="lg:col-span-1 bg-white rounded-lg border border-neutral-200 shadow-lg p-6"
-          >
-            {/* Timer */}
-            <div className="text-center mb-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-100 rounded-full">
-                <div className={`w-2 h-2 rounded-full ${isActive && !isPaused ? 'bg-neutral-900 animate-pulse' : 'bg-neutral-400'}`} />
-                <span className="text-sm text-neutral-900">{formatTime(timer)}</span>
-              </div>
-            </div>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { xs: '1fr', lg: '1fr 2fr' }, 
+          gap: 3 
+        }}>
+          <Card variant="outlined" sx={{ p: 3 }}>
+            <Box sx={{ textAlign: 'center', mb: 3 }}>
+              <Sheet
+                variant="soft"
+                color="neutral"
+                sx={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  px: 2,
+                  py: 1,
+                  borderRadius: 'xl',
+                }}
+              >
+                <Box 
+                  sx={{ 
+                    width: 8, 
+                    height: 8, 
+                    borderRadius: '50%', 
+                    bgcolor: isActive && !isPaused ? 'neutral.900' : 'neutral.400',
+                    animation: isActive && !isPaused ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : 'none',
+                    '@keyframes pulse': {
+                      '0%, 100%': {
+                        opacity: 1,
+                      },
+                      '50%': {
+                        opacity: 0.5,
+                      },
+                    },
+                  }} 
+                />
+                <Typography level="body-sm">{formatTime(timer)}</Typography>
+              </Sheet>
+            </Box>
 
-            {/* Waveform Visualization */}
-            <div className="mb-6">
-              <div className="flex items-center justify-center gap-1 h-24">
+            <Box sx={{ mb: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5, height: 96 }}>
                 {waveformBars.map((height, index) => (
-                  <div
+                  <Box
                     key={index}
-                    className="w-1 bg-neutral-400 rounded-full"
+                    sx={{ 
+                      width: 4, 
+                      bgcolor: 'neutral.400', 
+                      borderRadius: 'xl',
+                      height: `${height}%`,
+                    }}
                   />
                 ))}
-              </div>
-            </div>
+              </Box>
+            </Box>
 
-            {/* Controls */}
-            <div className="flex items-center justify-center gap-4">
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
               {!isActive ? (
-                <button
+                <IconButton
                   onClick={handleStart}
-                  className="w-16 h-16 bg-neutral-900 text-white rounded-lg shadow-xl flex items-center justify-center hover:bg-neutral-800 transition-all"
+                  size="lg"
+                  sx={{
+                    width: 64,
+                    height: 64,
+                    bgcolor: 'neutral.900',
+                    color: 'white',
+                    borderRadius: 'md',
+                    '&:hover': {
+                      bgcolor: 'neutral.800',
+                    },
+                  }}
                 >
-                  <Play className="w-7 h-7" />
-                </button>
+                  <Play size={28} />
+                </IconButton>
               ) : (
                 <>
-                  <button
+                  <IconButton
                     onClick={handlePause}
-                    className="w-14 h-14 bg-white border-2 border-neutral-200 text-neutral-900 rounded-md shadow-lg flex items-center justify-center hover:bg-neutral-50 transition-all"
+                    variant="outlined"
+                    color="neutral"
+                    size="lg"
+                    sx={{ width: 56, height: 56 }}
                   >
-                    {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
-                  </button>
+                    {isPaused ? <Play size={20} /> : <Pause size={20} />}
+                  </IconButton>
 
-                  <button
+                  <IconButton
                     onClick={() => setIsMuted(!isMuted)}
-                    className="w-14 h-14 bg-white border-2 border-neutral-200 text-neutral-900 rounded-md shadow-lg flex items-center justify-center hover:bg-neutral-50 transition-all"
+                    variant="outlined"
+                    color="neutral"
+                    size="lg"
+                    sx={{ width: 56, height: 56 }}
                   >
-                    {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-                  </button>
+                    {isMuted ? <MicOff size={20} /> : <Mic size={20} />}
+                  </IconButton>
 
-                  <button
-                    className="w-14 h-14 bg-white border-2 border-neutral-200 text-neutral-900 rounded-md shadow-lg flex items-center justify-center hover:bg-neutral-50 transition-all"
+                  <IconButton
+                    variant="outlined"
+                    color="neutral"
+                    size="lg"
+                    sx={{ width: 56, height: 56 }}
                   >
-                    <RotateCcw className="w-5 h-5" />
-                  </button>
+                    <RotateCcw size={20} />
+                  </IconButton>
                 </>
               )}
-            </div>
+            </Box>
 
-            {/* Status */}
-            <div className="mt-6 text-center">
-              <p className="text-sm text-neutral-600">
+            <Box sx={{ mt: 3, textAlign: 'center' }}>
+              <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
                 {!isActive ? 'Press play to start the simulation' : isPaused ? 'Session paused' : 'Listening...'}
-              </p>
-            </div>
-          </div>
+              </Typography>
+            </Box>
+          </Card>
 
-          {/* Sidebar with Transcript and Feedback */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Real-time Transcript */}
-            <div
-              className="bg-white rounded-lg border border-neutral-200 shadow-sm p-6"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm text-neutral-900">Live Transcript</h3>
-                <Volume2 className="w-4 h-4 text-neutral-400" />
-              </div>
-              <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <Card variant="outlined" sx={{ p: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+                <Typography level="title-sm">Live Transcript</Typography>
+                <Volume2 size={16} style={{ opacity: 0.4 }} />
+              </Box>
+              <Box sx={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: 2, 
+                maxHeight: 400, 
+                overflowY: 'auto', 
+                pr: 1 
+              }}>
                 {transcript.map((item, index) => (
-                  <div
+                  <Box
                     key={index}
-                    className="pb-4 border-b border-neutral-100 last:border-0"
+                    sx={{ 
+                      pb: 2, 
+                      borderBottom: index < transcript.length - 1 ? '1px solid' : 'none',
+                      borderColor: 'divider',
+                    }}
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className={`text-xs ${item.speaker === 'You' ? 'text-neutral-900' : 'text-neutral-600'}`}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                      <Typography 
+                        level="body-xs" 
+                        sx={{ 
+                          fontWeight: item.speaker === 'You' ? 600 : 400,
+                          color: item.speaker === 'You' ? 'text.primary' : 'text.secondary',
+                        }}
+                      >
                         {item.speaker}
-                      </span>
-                      <span className="text-xs text-neutral-400">{item.timestamp}</span>
-                    </div>
-                    <p className="text-sm text-neutral-700">{item.text}</p>
-                  </div>
+                      </Typography>
+                      <Typography level="body-xs" sx={{ color: 'text.tertiary' }}>{item.timestamp}</Typography>
+                    </Box>
+                    <Typography level="body-sm" sx={{ color: 'text.secondary' }}>{item.text}</Typography>
+                  </Box>
                 ))}
-              </div>
-            </div>
+              </Box>
+            </Card>
 
-            {/* Real-time Feedback */}
-            <div
-              className="bg-white rounded-lg border border-neutral-200 shadow-sm p-6"
-            >
-              <h3 className="text-sm text-neutral-900 mb-4">AI Feedback</h3>
-              <div className="space-y-3">
+            <Card variant="outlined" sx={{ p: 3 }}>
+              <Typography level="title-sm" sx={{ mb: 2 }}>AI Feedback</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                 {feedback.map((item, index) => (
-                  <div
+                  <Sheet
                     key={index}
-                    className="p-3 rounded-md bg-neutral-100 border border-neutral-200"
+                    variant="soft"
+                    color="neutral"
+                    sx={{ p: 1.5, borderRadius: 'sm' }}
                   >
-                    <p className="text-xs text-neutral-700">
+                    <Typography level="body-xs">
                       {item.type === 'positive' ? '✓ ' : '💡 '}
                       {item.text}
-                    </p>
-                  </div>
+                    </Typography>
+                  </Sheet>
                 ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </Box>
+            </Card>
+          </Box>
+        </Box>
+      </Box>
 
-      {/* End Session Modal */}
-      {showCompletion && (
-        <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-6"
-          onClick={() => setShowCompletion(false)}
+      <Modal
+        open={showCompletion}
+        onClose={() => setShowCompletion(false)}
+      >
+        <ModalDialog
+          sx={{
+            maxWidth: 480,
+            borderRadius: 'md',
+            p: 4,
+          }}
         >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-lg p-8 max-w-md w-full shadow-2xl"
+          <Box sx={{ textAlign: 'center', mb: 3 }}>
+            <Sheet
+              sx={{
+                width: 64,
+                height: 64,
+                borderRadius: 'md',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mx: 'auto',
+                mb: 2,
+                bgcolor: 'background.level1',
+              }}
+            >
+              <Typography sx={{ fontSize: 32 }}>✅</Typography>
+            </Sheet>
+            <Typography level="h4" sx={{ mb: 1 }}>Simulation Complete!</Typography>
+            <Typography level="body-md" sx={{ color: 'text.secondary' }}>
+              Great work! Your performance has been recorded.
+            </Typography>
+          </Box>
+
+          <Sheet
+            variant="soft"
+            color="neutral"
+            sx={{ p: 2, borderRadius: 'sm', mb: 3 }}
           >
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-neutral-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">✅</span>
-              </div>
-              <h2 className="text-2xl text-neutral-900 mb-2">Simulation Complete!</h2>
-              <p className="text-neutral-600">Great work! Your performance has been recorded.</p>
-            </div>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+              <Typography level="body-sm" sx={{ color: 'text.secondary' }}>Session Duration</Typography>
+              <Typography level="body-sm">{formatTime(timer)}</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Typography level="body-sm" sx={{ color: 'text.secondary' }}>Estimated Score</Typography>
+              <Typography level="body-sm">Calculating...</Typography>
+            </Box>
+          </Sheet>
 
-            <div className="bg-neutral-50 rounded-md p-4 mb-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-neutral-600">Session Duration</span>
-                <span className="text-sm text-neutral-900">{formatTime(timer)}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-neutral-600">Estimated Score</span>
-                <span className="text-sm text-neutral-900">Calculating...</span>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={onComplete}
-                className="flex-1 py-3 bg-neutral-900 text-white rounded-md hover:bg-neutral-800 transition-all shadow-lg"
-              >
-                View Feedback
-              </button>
-              <button
-                onClick={() => setShowCompletion(false)}
-                className="px-6 py-3 bg-neutral-100 text-neutral-900 rounded-md hover:bg-neutral-200 transition-all"
-              >
-                Continue
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+          <Box sx={{ display: 'flex', gap: 1.5 }}>
+            <Button
+              onClick={onComplete}
+              fullWidth
+              sx={{
+                bgcolor: 'neutral.900',
+                color: 'white',
+                '&:hover': {
+                  bgcolor: 'neutral.800',
+                },
+              }}
+            >
+              View Feedback
+            </Button>
+            <Button
+              onClick={() => setShowCompletion(false)}
+              variant="soft"
+              color="neutral"
+              sx={{ px: 3 }}
+            >
+              Continue
+            </Button>
+          </Box>
+        </ModalDialog>
+      </Modal>
+    </Box>
   );
 }

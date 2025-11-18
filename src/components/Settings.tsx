@@ -1,4 +1,13 @@
 import { User, Bell, Lock, Palette, Shield } from "lucide-react";
+import Box from '@mui/joy/Box';
+import Card from '@mui/joy/Card';
+import Typography from '@mui/joy/Typography';
+import Sheet from '@mui/joy/Sheet';
+import Button from '@mui/joy/Button';
+import Input from '@mui/joy/Input';
+import Select from '@mui/joy/Select';
+import Option from '@mui/joy/Option';
+import Switch from '@mui/joy/Switch';
 
 export function Settings() {
   const settingsSections = [
@@ -34,200 +43,219 @@ export function Settings() {
   ];
 
   return (
-    <div className="p-8 max-w-5xl mx-auto">
-      {/* Header */}
-      <div
-        className="mb-8"
-      >
-        <h1 className="text-2xl text-neutral-900 mb-2">Settings</h1>
-        <p className="text-neutral-600">Manage your account preferences and settings</p>
-      </div>
+    <Box sx={{ p: 4, maxWidth: '1000px', mx: 'auto' }}>
+      <Box sx={{ mb: 4 }}>
+        <Typography level="h2" sx={{ mb: 0.5 }}>
+          Settings
+        </Typography>
+        <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+          Manage your account preferences and settings
+        </Typography>
+      </Box>
 
-      {/* Settings Sections */}
-      <div className="space-y-6">
-        {settingsSections.map((section, sectionIndex) => {
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+        {settingsSections.map((section) => {
           const Icon = section.icon;
           return (
-            <div
-              key={section.title}
-              className="bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden"
-            >
-              <div className="p-6 border-b border-neutral-200 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
-                  <Icon className="w-5 h-5 text-neutral-700" />
-                </div>
-                <h2 className="text-base text-neutral-900">{section.title}</h2>
-              </div>
+            <Card key={section.title} variant="outlined">
+              <Box sx={{ p: 3, borderBottom: '1px solid', borderColor: 'divider', display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                <Sheet
+                  variant="soft"
+                  color="neutral"
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 'sm',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Icon size={20} />
+                </Sheet>
+                <Typography level="title-md">{section.title}</Typography>
+              </Box>
 
-              <div className="p-6 space-y-6">
-                {section.items.map((item, itemIndex) => (
-                  <div
+              <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 3 }}>
+                {section.items.map((item) => (
+                  <Box
                     key={item.label}
-                    className="flex items-center justify-between"
+                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                   >
-                    <div className="flex-1">
-                      <label className="text-sm text-neutral-900">{item.label}</label>
-                    </div>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography level="body-sm">{item.label}</Typography>
+                    </Box>
                     
                     {item.type === 'input' && (
-                      <input
-                        type="text"
+                      <Input
                         defaultValue={item.value as string}
-                        className="w-64 px-4 py-2 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-all text-sm"
-                        style={{ '--tw-ring-color': '#6082B6' } as React.CSSProperties}
+                        sx={{ width: 256 }}
+                        size="sm"
                       />
                     )}
 
                     {item.type === 'select' && (
-                      <select
+                      <Select
                         defaultValue={item.value as string}
-                        className="w-64 px-4 py-2 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-all text-sm appearance-none cursor-pointer"
-                        style={{ '--tw-ring-color': '#6082B6' } as React.CSSProperties}
+                        sx={{ width: 256 }}
+                        size="sm"
                       >
-                        <option>{item.value as string}</option>
-                        <option>Sales</option>
-                        <option>Medical</option>
-                        <option>Banking</option>
-                      </select>
+                        <Option value={item.value as string}>{item.value as string}</Option>
+                        <Option value="Sales">Sales</Option>
+                        <Option value="Medical">Medical</Option>
+                        <Option value="Banking">Banking</Option>
+                      </Select>
                     )}
 
                     {item.type === 'toggle' && (
-                      <button
-                        className={`relative w-12 h-6 rounded-full transition-all ${
-                          item.value ? '' : 'bg-neutral-300'
-                        }`}
-                        style={item.value ? { backgroundColor: '#6082B6' } : {}}
-                      >
-                        <div
-                          className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-md"
-                          style={{ transform: item.value ? 'translateX(24px)' : 'translateX(0)' }}
-                        />
-                      </button>
+                      <Switch
+                        defaultChecked={item.value as boolean}
+                        sx={{
+                          '--Switch-thumbSize': '20px',
+                          '--Switch-trackWidth': '48px',
+                          '--Switch-trackHeight': '24px',
+                          '--Switch-trackBackground': (theme) =>
+                            item.value ? '#6082B6' : theme.vars.palette.neutral[300],
+                          '&:hover': {
+                            '--Switch-trackBackground': (theme) =>
+                              item.value ? '#5070A0' : theme.vars.palette.neutral[400],
+                          },
+                        }}
+                      />
                     )}
-                  </div>
+                  </Box>
                 ))}
-              </div>
-            </div>
+              </Box>
+            </Card>
           );
         })}
 
-        {/* Password Change */}
-        <div
-          className="bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden"
-        >
-          <div className="p-6 border-b border-neutral-200 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
-              <Lock className="w-5 h-5 text-neutral-700" />
-            </div>
-            <h2 className="text-base text-neutral-900">Change Password</h2>
-          </div>
+        <Card variant="outlined">
+          <Box sx={{ p: 3, borderBottom: '1px solid', borderColor: 'divider', display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Sheet
+              variant="soft"
+              color="neutral"
+              sx={{
+                width: 40,
+                height: 40,
+                borderRadius: 'sm',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Lock size={20} />
+            </Sheet>
+            <Typography level="title-md">Change Password</Typography>
+          </Box>
 
-          <div className="p-6 space-y-4">
-            <div>
-              <label className="block text-sm text-neutral-700 mb-2">Current Password</label>
-              <input
+          <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box>
+              <Typography level="body-sm" sx={{ mb: 1, color: 'text.secondary' }}>
+                Current Password
+              </Typography>
+              <Input
                 type="password"
-                className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-all"
-                style={{ '--tw-ring-color': '#6082B6' } as React.CSSProperties}
                 placeholder="••••••••"
               />
-            </div>
-            <div>
-              <label className="block text-sm text-neutral-700 mb-2">New Password</label>
-              <input
+            </Box>
+            <Box>
+              <Typography level="body-sm" sx={{ mb: 1, color: 'text.secondary' }}>
+                New Password
+              </Typography>
+              <Input
                 type="password"
-                className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-all"
-                style={{ '--tw-ring-color': '#6082B6' } as React.CSSProperties}
                 placeholder="••••••••"
               />
-            </div>
-            <div>
-              <label className="block text-sm text-neutral-700 mb-2">Confirm New Password</label>
-              <input
+            </Box>
+            <Box>
+              <Typography level="body-sm" sx={{ mb: 1, color: 'text.secondary' }}>
+                Confirm New Password
+              </Typography>
+              <Input
                 type="password"
-                className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-all"
-                style={{ '--tw-ring-color': '#6082B6' } as React.CSSProperties}
                 placeholder="••••••••"
               />
-            </div>
-            <button
-              className="w-full py-3 text-white rounded-md transition-all shadow-lg"
-              style={{ backgroundColor: '#6082B6' }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5070A0'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#6082B6'}
+            </Box>
+            <Button
+              fullWidth
+              sx={{
+                bgcolor: '#6082B6',
+                '&:hover': {
+                  bgcolor: '#5070A0'
+                }
+              }}
             >
               Update Password
-            </button>
-          </div>
-        </div>
+            </Button>
+          </Box>
+        </Card>
 
-        {/* Preferences */}
-        <div
-          className="bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden"
-        >
-          <div className="p-6 border-b border-neutral-200 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md bg-neutral-100 flex items-center justify-center">
-              <Palette className="w-5 h-5 text-neutral-700" />
-            </div>
-            <h2 className="text-base text-neutral-900">Preferences</h2>
-          </div>
+        <Card variant="outlined">
+          <Box sx={{ p: 3, borderBottom: '1px solid', borderColor: 'divider', display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Sheet
+              variant="soft"
+              color="neutral"
+              sx={{
+                width: 40,
+                height: 40,
+                borderRadius: 'sm',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Palette size={20} />
+            </Sheet>
+            <Typography level="title-md">Preferences</Typography>
+          </Box>
 
-          <div className="p-6 space-y-6">
-            <div className="flex items-center justify-between">
-              <label className="text-sm text-neutral-900">Language</label>
-              <select 
-                className="w-64 px-4 py-2 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-all text-sm appearance-none cursor-pointer"
-                style={{ '--tw-ring-color': '#6082B6' } as React.CSSProperties}
-              >
-                <option>English</option>
-                <option>Spanish</option>
-                <option>French</option>
-                <option>German</option>
-              </select>
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm text-neutral-900">Time Zone</label>
-              <select 
-                className="w-64 px-4 py-2 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-all text-sm appearance-none cursor-pointer"
-                style={{ '--tw-ring-color': '#6082B6' } as React.CSSProperties}
-              >
-                <option>PST (UTC-8)</option>
-                <option>EST (UTC-5)</option>
-                <option>GMT (UTC+0)</option>
-                <option>CET (UTC+1)</option>
-              </select>
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm text-neutral-900">Theme</label>
-              <select 
-                className="w-64 px-4 py-2 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent transition-all text-sm appearance-none cursor-pointer"
-                style={{ '--tw-ring-color': '#6082B6' } as React.CSSProperties}
-              >
-                <option>Light</option>
-                <option>Dark</option>
-                <option>Auto</option>
-              </select>
-            </div>
-          </div>
-        </div>
+          <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Typography level="body-sm">Language</Typography>
+              <Select defaultValue="English" sx={{ width: 256 }} size="sm">
+                <Option value="English">English</Option>
+                <Option value="Spanish">Spanish</Option>
+                <Option value="French">French</Option>
+                <Option value="German">German</Option>
+              </Select>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Typography level="body-sm">Time Zone</Typography>
+              <Select defaultValue="PST" sx={{ width: 256 }} size="sm">
+                <Option value="PST">PST (UTC-8)</Option>
+                <Option value="EST">EST (UTC-5)</Option>
+                <Option value="GMT">GMT (UTC+0)</Option>
+                <Option value="CET">CET (UTC+1)</Option>
+              </Select>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Typography level="body-sm">Theme</Typography>
+              <Select defaultValue="Light" sx={{ width: 256 }} size="sm">
+                <Option value="Light">Light</Option>
+                <Option value="Dark">Dark</Option>
+                <Option value="Auto">Auto</Option>
+              </Select>
+            </Box>
+          </Box>
+        </Card>
 
-        {/* Save Button */}
-        <div
-          className="flex items-center justify-end gap-4"
-        >
-          <button className="px-6 py-3 bg-neutral-100 text-neutral-900 rounded-md hover:bg-neutral-200 transition-all">
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 2 }}>
+          <Button variant="soft" color="neutral">
             Cancel
-          </button>
-          <button
-            className="px-6 py-3 text-white rounded-md transition-all shadow-lg"
-            style={{ backgroundColor: '#6082B6' }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5070A0'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#6082B6'}
+          </Button>
+          <Button
+            sx={{
+              bgcolor: '#6082B6',
+              '&:hover': {
+                bgcolor: '#5070A0'
+              }
+            }}
           >
             Save Changes
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Box>
+      </Box>
+    </Box>
   );
 }
