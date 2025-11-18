@@ -1,19 +1,5 @@
 import { X, Save, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
-import Box from '@mui/joy/Box';
-import Typography from '@mui/joy/Typography';
-import Button from '@mui/joy/Button';
-import IconButton from '@mui/joy/IconButton';
-import Input from '@mui/joy/Input';
-import Select from '@mui/joy/Select';
-import Option from '@mui/joy/Option';
-import Textarea from '@mui/joy/Textarea';
-import Modal from '@mui/joy/Modal';
-import ModalDialog from '@mui/joy/ModalDialog';
-import Sheet from '@mui/joy/Sheet';
-import FormControl from '@mui/joy/FormControl';
-import FormLabel from '@mui/joy/FormLabel';
-import FormHelperText from '@mui/joy/FormHelperText';
 
 interface SimulationBuilderProps {
   onClose: () => void;
@@ -43,7 +29,7 @@ export function SimulationBuilder({ onClose, onSave, editingSimulation }: Simula
   const handleRemoveField = (field: 'rules' | 'outcomeGoals' | 'evaluationCriteria', index: number) => {
     setFormData({
       ...formData,
-      [field]: formData[field].filter((_: string, i: number) => i !== index)
+      [field]: formData[field].filter((_, i) => i !== index)
     });
   };
 
@@ -62,333 +48,270 @@ export function SimulationBuilder({ onClose, onSave, editingSimulation }: Simula
   };
 
   return (
-    <Modal
-      open={true}
-      onClose={onClose}
-    >
-      <ModalDialog
-        sx={{
-          width: '100%',
-          maxWidth: 896,
-          maxHeight: '90vh',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-          p: 0,
-        }}
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+      <div
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
       >
-        <Sheet
-          sx={{
-            p: 3,
-            borderBottom: '1px solid',
-            borderColor: 'divider',
-            background: 'linear-gradient(to right, rgba(147, 51, 234, 0.05), rgba(59, 130, 246, 0.05))',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Box>
-            <Typography level="h4">
+        {/* Header */}
+        <div className="p-6 border-b border-neutral-200 flex items-center justify-between bg-gradient-to-r from-purple-50 to-blue-50">
+          <div>
+            <h2 className="text-xl text-neutral-900">
               {editingSimulation ? 'Edit Simulation' : 'Create New Simulation'}
-            </Typography>
-            <Typography level="body-sm" sx={{ color: 'text.secondary', mt: 0.5 }}>
+            </h2>
+            <p className="text-sm text-neutral-600 mt-1">
               Configure simulation parameters and evaluation criteria
-            </Typography>
-          </Box>
-          <IconButton
+            </p>
+          </div>
+          <button
             onClick={onClose}
-            variant="outlined"
-            color="neutral"
-            size="sm"
+            className="w-10 h-10 bg-white rounded-xl border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 transition-all"
           >
-            <X size={20} />
-          </IconButton>
-        </Sheet>
+            <X className="w-5 h-5 text-neutral-600" />
+          </button>
+        </div>
 
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{ 
-            flex: 1, 
-            overflowY: 'auto', 
-            p: 3 
-          }}
-        >
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-            <Box sx={{ 
-              display: 'grid', 
-              gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, 
-              gap: 2 
-            }}>
-              <FormControl required>
-                <FormLabel>Simulation Title</FormLabel>
-                <Input
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6">
+          <div className="space-y-6">
+            {/* Basic Info */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm text-neutral-700 mb-2">
+                  Simulation Title *
+                </label>
+                <input
+                  type="text"
+                  required
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-white border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all text-sm"
                   placeholder="e.g., Emergency Triage Assessment"
                 />
-              </FormControl>
+              </div>
 
-              <FormControl required>
-                <FormLabel>Category</FormLabel>
-                <Select
+              <div>
+                <label className="block text-sm text-neutral-700 mb-2">
+                  Category *
+                </label>
+                <select
+                  required
                   value={formData.category}
-                  onChange={(_, value) => setFormData({ ...formData, category: value as string })}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-white border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all text-sm"
                 >
-                  <Option value="Medical">Medical</Option>
-                  <Option value="Insurance">Insurance</Option>
-                  <Option value="Banking">Banking</Option>
-                  <Option value="Emergency">Emergency</Option>
-                  <Option value="HR">HR</Option>
-                  <Option value="Finance">Finance</Option>
-                  <Option value="Call Center">Call Center</Option>
-                </Select>
-              </FormControl>
+                  <option>Medical</option>
+                  <option>Insurance</option>
+                  <option>Banking</option>
+                  <option>Emergency</option>
+                  <option>HR</option>
+                  <option>Finance</option>
+                  <option>Call Center</option>
+                </select>
+              </div>
 
-              <FormControl required>
-                <FormLabel>Difficulty Level</FormLabel>
-                <Select
+              <div>
+                <label className="block text-sm text-neutral-700 mb-2">
+                  Difficulty Level *
+                </label>
+                <select
+                  required
                   value={formData.difficulty}
-                  onChange={(_, value) => setFormData({ ...formData, difficulty: value as string })}
+                  onChange={(e) => setFormData({ ...formData, difficulty: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-white border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all text-sm"
                 >
-                  <Option value="Beginner">Beginner</Option>
-                  <Option value="Intermediate">Intermediate</Option>
-                  <Option value="Advanced">Advanced</Option>
-                  <Option value="Expert">Expert</Option>
-                </Select>
-              </FormControl>
+                  <option>Beginner</option>
+                  <option>Intermediate</option>
+                  <option>Advanced</option>
+                  <option>Expert</option>
+                </select>
+              </div>
 
-              <FormControl required>
-                <FormLabel>Duration (minutes)</FormLabel>
-                <Input
+              <div>
+                <label className="block text-sm text-neutral-700 mb-2">
+                  Duration (minutes) *
+                </label>
+                <input
                   type="number"
+                  required
                   value={formData.duration}
                   onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                  className="w-full px-4 py-2.5 bg-white border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all text-sm"
                   placeholder="15"
                 />
-              </FormControl>
-            </Box>
+              </div>
+            </div>
 
-            <Sheet
-              variant="soft"
-              sx={{
-                p: 2.5,
-                borderRadius: 'md',
-                bgcolor: 'rgba(147, 51, 234, 0.05)',
-                border: '1px solid',
-                borderColor: 'rgba(147, 51, 234, 0.1)',
-              }}
-            >
-              <FormControl required>
-                <FormLabel>Scenario Description (Admin Only)</FormLabel>
-                <FormHelperText>
-                  This detailed description will only be visible to admins. Users will not see this information.
-                </FormHelperText>
-                <Textarea
-                  value={formData.scenarioDescription}
-                  onChange={(e) => setFormData({ ...formData, scenarioDescription: e.target.value })}
-                  minRows={4}
-                  placeholder="Describe the full scenario context, background information, and what the AI agent should simulate..."
-                  sx={{ mt: 1 }}
-                />
-              </FormControl>
-            </Sheet>
+            {/* Scenario Description */}
+            <div className="bg-purple-50/50 p-5 rounded-xl border border-purple-100">
+              <label className="block text-sm text-neutral-900 mb-2">
+                Scenario Description (Admin Only) *
+              </label>
+              <p className="text-xs text-neutral-600 mb-3">
+                This detailed description will only be visible to admins. Users will not see this information.
+              </p>
+              <textarea
+                required
+                value={formData.scenarioDescription}
+                onChange={(e) => setFormData({ ...formData, scenarioDescription: e.target.value })}
+                rows={4}
+                className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all text-sm resize-none"
+                placeholder="Describe the full scenario context, background information, and what the AI agent should simulate..."
+              />
+            </div>
 
-            <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1.5 }}>
-                <Box>
-                  <Typography level="title-sm">
+            {/* Rules & Constraints */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <label className="block text-sm text-neutral-900">
                     Rules & Constraints for User
-                  </Typography>
-                  <Typography level="body-xs" sx={{ color: 'text.secondary', mt: 0.5 }}>
+                  </label>
+                  <p className="text-xs text-neutral-600 mt-1">
                     Define specific rules the user must follow during the simulation
-                  </Typography>
-                </Box>
-                <Button
+                  </p>
+                </div>
+                <button
                   type="button"
                   onClick={() => handleAddField('rules')}
-                  size="sm"
-                  variant="soft"
-                  startDecorator={<Plus size={16} />}
-                  sx={{
-                    bgcolor: 'rgba(147, 51, 234, 0.1)',
-                    color: 'rgb(147, 51, 234)',
-                    '&:hover': {
-                      bgcolor: 'rgba(147, 51, 234, 0.2)',
-                    },
-                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-all text-sm"
                 >
+                  <Plus className="w-4 h-4" />
                   Add Rule
-                </Button>
-              </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {formData.rules.map((rule: string, index: number) => (
-                  <Box key={index} sx={{ display: 'flex', gap: 1 }}>
-                    <Input
+                </button>
+              </div>
+              <div className="space-y-2">
+                {formData.rules.map((rule, index) => (
+                  <div key={index} className="flex gap-2">
+                    <input
+                      type="text"
                       value={rule}
                       onChange={(e) => handleUpdateField('rules', index, e.target.value)}
+                      className="flex-1 px-4 py-2.5 bg-white border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all text-sm"
                       placeholder="e.g., Must gather patient vitals before diagnosis"
-                      sx={{ flex: 1 }}
                     />
                     {formData.rules.length > 1 && (
-                      <IconButton
+                      <button
                         type="button"
                         onClick={() => handleRemoveField('rules', index)}
-                        color="danger"
-                        variant="soft"
-                        size="sm"
+                        className="w-10 h-10 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-all flex items-center justify-center"
                       >
-                        <Trash2 size={16} />
-                      </IconButton>
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     )}
-                  </Box>
+                  </div>
                 ))}
-              </Box>
-            </Box>
+              </div>
+            </div>
 
-            <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1.5 }}>
-                <Box>
-                  <Typography level="title-sm">
+            {/* Outcome Goals */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <label className="block text-sm text-neutral-900">
                     Outcome Goals
-                  </Typography>
-                  <Typography level="body-xs" sx={{ color: 'text.secondary', mt: 0.5 }}>
+                  </label>
+                  <p className="text-xs text-neutral-600 mt-1">
                     Define what successful completion looks like
-                  </Typography>
-                </Box>
-                <Button
+                  </p>
+                </div>
+                <button
                   type="button"
                   onClick={() => handleAddField('outcomeGoals')}
-                  size="sm"
-                  variant="soft"
-                  startDecorator={<Plus size={16} />}
-                  sx={{
-                    bgcolor: 'rgba(147, 51, 234, 0.1)',
-                    color: 'rgb(147, 51, 234)',
-                    '&:hover': {
-                      bgcolor: 'rgba(147, 51, 234, 0.2)',
-                    },
-                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-all text-sm"
                 >
+                  <Plus className="w-4 h-4" />
                   Add Goal
-                </Button>
-              </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {formData.outcomeGoals.map((goal: string, index: number) => (
-                  <Box key={index} sx={{ display: 'flex', gap: 1 }}>
-                    <Input
+                </button>
+              </div>
+              <div className="space-y-2">
+                {formData.outcomeGoals.map((goal, index) => (
+                  <div key={index} className="flex gap-2">
+                    <input
+                      type="text"
                       value={goal}
                       onChange={(e) => handleUpdateField('outcomeGoals', index, e.target.value)}
+                      className="flex-1 px-4 py-2.5 bg-white border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all text-sm"
                       placeholder="e.g., Successfully calm the patient and gather complete medical history"
-                      sx={{ flex: 1 }}
                     />
                     {formData.outcomeGoals.length > 1 && (
-                      <IconButton
+                      <button
                         type="button"
                         onClick={() => handleRemoveField('outcomeGoals', index)}
-                        color="danger"
-                        variant="soft"
-                        size="sm"
+                        className="w-10 h-10 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-all flex items-center justify-center"
                       >
-                        <Trash2 size={16} />
-                      </IconButton>
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     )}
-                  </Box>
+                  </div>
                 ))}
-              </Box>
-            </Box>
+              </div>
+            </div>
 
-            <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1.5 }}>
-                <Box>
-                  <Typography level="title-sm">
+            {/* Evaluation Criteria */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <label className="block text-sm text-neutral-900">
                     Evaluation Criteria
-                  </Typography>
-                  <Typography level="body-xs" sx={{ color: 'text.secondary', mt: 0.5 }}>
+                  </label>
+                  <p className="text-xs text-neutral-600 mt-1">
                     Specify how the user's performance will be evaluated
-                  </Typography>
-                </Box>
-                <Button
+                  </p>
+                </div>
+                <button
                   type="button"
                   onClick={() => handleAddField('evaluationCriteria')}
-                  size="sm"
-                  variant="soft"
-                  startDecorator={<Plus size={16} />}
-                  sx={{
-                    bgcolor: 'rgba(147, 51, 234, 0.1)',
-                    color: 'rgb(147, 51, 234)',
-                    '&:hover': {
-                      bgcolor: 'rgba(147, 51, 234, 0.2)',
-                    },
-                  }}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-all text-sm"
                 >
+                  <Plus className="w-4 h-4" />
                   Add Criteria
-                </Button>
-              </Box>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {formData.evaluationCriteria.map((criteria: string, index: number) => (
-                  <Box key={index} sx={{ display: 'flex', gap: 1 }}>
-                    <Input
+                </button>
+              </div>
+              <div className="space-y-2">
+                {formData.evaluationCriteria.map((criteria, index) => (
+                  <div key={index} className="flex gap-2">
+                    <input
+                      type="text"
                       value={criteria}
                       onChange={(e) => handleUpdateField('evaluationCriteria', index, e.target.value)}
+                      className="flex-1 px-4 py-2.5 bg-white border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-700 focus:border-transparent transition-all text-sm"
                       placeholder="e.g., Communication clarity and empathy"
-                      sx={{ flex: 1 }}
                     />
                     {formData.evaluationCriteria.length > 1 && (
-                      <IconButton
+                      <button
                         type="button"
                         onClick={() => handleRemoveField('evaluationCriteria', index)}
-                        color="danger"
-                        variant="soft"
-                        size="sm"
+                        className="w-10 h-10 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-all flex items-center justify-center"
                       >
-                        <Trash2 size={16} />
-                      </IconButton>
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     )}
-                  </Box>
+                  </div>
                 ))}
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+              </div>
+            </div>
+          </div>
+        </form>
 
-        <Sheet
-          sx={{
-            p: 3,
-            borderTop: '1px solid',
-            borderColor: 'divider',
-            bgcolor: 'background.level1',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            gap: 1.5,
-          }}
-        >
-          <Button
+        {/* Footer */}
+        <div className="p-6 border-t border-neutral-200 bg-neutral-50 flex items-center justify-end gap-3">
+          <button
             type="button"
             onClick={onClose}
-            variant="outlined"
-            color="neutral"
+            className="px-6 py-2.5 bg-white border border-neutral-300 text-neutral-700 rounded-xl hover:bg-neutral-50 transition-all text-sm"
           >
             Cancel
-          </Button>
-          <Button
+          </button>
+          <button
             type="submit"
             onClick={handleSubmit}
-            startDecorator={<Save size={16} />}
-            sx={{
-              background: 'linear-gradient(to right, rgb(88, 28, 135), rgb(107, 33, 168))',
-              color: 'white',
-              '&:hover': {
-                background: 'linear-gradient(to right, rgb(107, 33, 168), rgb(126, 34, 206))',
-              },
-            }}
+            className="px-6 py-2.5 bg-gradient-to-r from-purple-900 to-purple-800 text-white rounded-xl hover:from-purple-800 hover:to-purple-700 transition-all text-sm shadow-lg shadow-purple-900/20 flex items-center gap-2"
           >
+            <Save className="w-4 h-4" />
             {editingSimulation ? 'Save Changes' : 'Create Simulation'}
-          </Button>
-        </Sheet>
-      </ModalDialog>
-    </Modal>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

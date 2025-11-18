@@ -1,15 +1,6 @@
 import { Search, Filter, Play, ChevronRight, Plus, Edit } from "lucide-react";
 import { useState } from "react";
 import { SimulationBuilder } from "./SimulationBuilder";
-import Box from '@mui/joy/Box';
-import Card from '@mui/joy/Card';
-import Typography from '@mui/joy/Typography';
-import Input from '@mui/joy/Input';
-import Select from '@mui/joy/Select';
-import Option from '@mui/joy/Option';
-import IconButton from '@mui/joy/IconButton';
-import Chip from '@mui/joy/Chip';
-import Sheet from '@mui/joy/Sheet';
 
 interface SimsLibraryProps {
   userRole: 'admin' | 'user';
@@ -48,6 +39,23 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
     setShowBuilder(true);
   };
 
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'Medium': return 'text-neutral-700 bg-neutral-100';
+      case 'Hard': return 'text-neutral-800 bg-neutral-200';
+      case 'Very Hard': return 'text-neutral-900 bg-neutral-300';
+      default: return 'text-neutral-600 bg-neutral-50';
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Completed': return 'text-neutral-700 bg-neutral-100';
+      case 'In Progress': return 'text-neutral-700 bg-neutral-100';
+      default: return 'text-neutral-600 bg-neutral-50';
+    }
+  };
+
   const filteredSims = simulations.filter(sim => {
     const matchesSearch = sim.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesIndustry = filterIndustry === 'all' || sim.industry.toLowerCase() === filterIndustry.toLowerCase();
@@ -55,187 +63,148 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
   });
 
   return (
-    <Box sx={{ p: 4, maxWidth: '1400px', mx: 'auto' }}>
-      <Box sx={{ mb: 3 }}>
-        <Typography level="h2" sx={{ mb: 0.5 }}>
-          Simulation Library
-        </Typography>
-        <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
-          Browse and run AI-powered conversation simulations
-        </Typography>
-      </Box>
+    <div className="p-8 max-w-7xl mx-auto">
+      {/* Header */}
+      <div
+        className="mb-6"
+      >
+        <h1 className="text-2xl text-neutral-900 mb-2">Simulation Library</h1>
+        <p className="text-neutral-600">Browse and run AI-powered conversation simulations</p>
+      </div>
 
-      <Card variant="outlined" sx={{ p: 2, mb: 2 }}>
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', lg: 'row' }, gap: 1.5 }}>
-          <Input
-            placeholder="Search simulations..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            startDecorator={<Search size={16} />}
-            sx={{ flex: 1 }}
-            size="sm"
-          />
+      {/* Filters */}
+      <div
+        className="bg-white rounded-md p-4 border border-neutral-200 shadow-sm mb-4"
+      >
+        <div className="flex flex-col lg:flex-row gap-3">
+          {/* Search */}
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-700" />
+            <input
+              type="text"
+              placeholder="Search simulations..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-3 py-2 text-sm bg-white border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all"
+            />
+          </div>
 
-          <Select
-            value={filterIndustry}
-            onChange={(_, value) => setFilterIndustry(value as string)}
-            startDecorator={<Filter size={16} />}
-            size="sm"
-            sx={{ minWidth: 180 }}
-          >
-            {industries.map(industry => (
-              <Option key={industry} value={industry.toLowerCase()}>
-                {industry} Industry
-              </Option>
-            ))}
-          </Select>
-        </Box>
-      </Card>
-
-      <Card variant="outlined" sx={{ overflow: 'hidden' }}>
-        <Box sx={{ 
-          display: 'grid', 
-          gridTemplateColumns: '5fr 2fr 2fr 2fr 1fr', 
-          gap: 1.5, 
-          px: 2, 
-          py: 1.5, 
-          bgcolor: 'background.level1',
-          borderBottom: '1px solid',
-          borderColor: 'divider'
-        }}>
-          <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Simulation</Typography>
-          <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Industry</Typography>
-          <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Difficulty</Typography>
-          <Typography level="body-xs" sx={{ color: 'text.secondary' }}>Last Run</Typography>
-          <Typography level="body-xs" sx={{ color: 'text.secondary' }}></Typography>
-        </Box>
-
-        <Box sx={{ 
-          '& > *:not(:last-child)': { 
-            borderBottom: '1px solid', 
-            borderColor: 'divider' 
-          } 
-        }}>
-          {filteredSims.map((sim) => (
-            <Box
-              key={sim.id}
-              onClick={() => onRunSimulation(sim.id)}
-              sx={{ 
-                display: 'grid', 
-                gridTemplateColumns: '5fr 2fr 2fr 2fr 1fr', 
-                gap: 1.5, 
-                px: 2, 
-                py: 1.5, 
-                alignItems: 'center',
-                cursor: 'pointer',
-                '&:hover': {
-                  bgcolor: 'background.level1'
-                }
-              }}
+          {/* Industry Filter */}
+          <div className="relative">
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-700" />
+            <select
+              value={filterIndustry}
+              onChange={(e) => setFilterIndustry(e.target.value)}
+              className="pl-10 pr-8 py-2 text-sm bg-white border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-transparent transition-all appearance-none cursor-pointer min-w-[180px]"
             >
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0 }}>
-                <IconButton
+              {industries.map(industry => (
+                <option key={industry} value={industry.toLowerCase()}>
+                  {industry} Industry
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Compact Table */}
+      <div
+        className="bg-white rounded-md border border-neutral-200 shadow-sm overflow-hidden"
+      >
+        {/* Table Header */}
+        <div className="grid grid-cols-12 gap-3 px-4 py-2.5 bg-neutral-50 border-b border-neutral-200 text-xs text-neutral-600">
+          <div className="col-span-5">Simulation</div>
+          <div className="col-span-2">Industry</div>
+          <div className="col-span-2">Difficulty</div>
+          <div className="col-span-2">Last Run</div>
+          <div className="col-span-1"></div>
+        </div>
+
+        {/* Table Body */}
+        <div className="divide-y divide-neutral-100">
+          {filteredSims.map((sim, index) => (
+            <div
+              key={sim.id}
+              className="grid grid-cols-12 gap-3 px-4 py-3 items-center transition-colors cursor-pointer"
+              onClick={() => onRunSimulation(sim.id)}
+            >
+              {/* Simulation Title + Status */}
+              <div className="col-span-5 flex items-center gap-2.5 min-w-0">
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     onRunSimulation(sim.id);
                   }}
-                  size="sm"
-                  sx={{ 
-                    bgcolor: '#6082B6',
-                    color: 'white',
-                    '&:hover': {
-                      bgcolor: '#5070A0'
-                    }
-                  }}
+                  className="w-8 h-8 rounded-md text-white flex items-center justify-center shadow-sm hover:shadow-md transition-all flex-shrink-0"
+                  style={{ backgroundColor: '#6082B6' }}
                 >
-                  <Play size={14} />
-                </IconButton>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, minWidth: 0, flex: 1 }}>
-                  <Typography level="body-sm" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                    {sim.title}
-                  </Typography>
-                  <Chip 
-                    size="sm" 
-                    variant="soft" 
-                    color="neutral"
-                    sx={{ flexShrink: 0 }}
-                  >
+                  <Play className="w-3.5 h-3.5" />
+                </button>
+                <div className="flex items-center gap-1.5 min-w-0 flex-1">
+                  <h3 className="text-sm text-neutral-900 truncate">{sim.title}</h3>
+                  <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-xs flex-shrink-0 ${getStatusColor(sim.status)}`}>
                     {sim.status === 'Not Started' ? 'New' : sim.status === 'Completed' ? '✓' : sim.status}
-                  </Chip>
+                  </span>
                   {sim.score && (
-                    <Typography level="body-xs" sx={{ color: 'text.tertiary', flexShrink: 0 }}>
-                      ({sim.score}%)
-                    </Typography>
+                    <span className="text-xs text-neutral-400 flex-shrink-0">({sim.score}%)</span>
                   )}
-                </Box>
-              </Box>
+                </div>
+              </div>
 
-              <Box>
-                <Chip size="sm" variant="soft" color="neutral">
+              {/* Industry */}
+              <div className="col-span-2">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs bg-neutral-100 text-neutral-700">
                   {sim.industry}
-                </Chip>
-              </Box>
+                </span>
+              </div>
 
-              <Box>
-                <Chip size="sm" variant="soft" color="neutral">
+              {/* Difficulty */}
+              <div className="col-span-2">
+                <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs ${getDifficultyColor(sim.difficulty)}`}>
                   {sim.difficulty}
-                </Chip>
-              </Box>
+                </span>
+              </div>
 
-              <Box>
-                <Typography level="body-xs" sx={{ color: 'text.secondary' }}>
-                  {sim.lastRun}
-                </Typography>
-              </Box>
+              {/* Last Run */}
+              <div className="col-span-2">
+                <p className="text-xs text-neutral-500">{sim.lastRun}</p>
+              </div>
 
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 0.5 }}>
+              {/* Actions */}
+              <div className="col-span-1 flex justify-end gap-1">
                 {userRole === 'admin' && (
-                  <IconButton
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleEditSimulation(sim);
                     }}
-                    size="sm"
-                    variant="soft"
-                    color="neutral"
+                    className="w-7 h-7 rounded-md bg-neutral-100 text-neutral-700 flex items-center justify-center hover:bg-neutral-200 transition-all"
+                    title="Edit simulation"
                   >
-                    <Edit size={14} />
-                  </IconButton>
+                    <Edit className="w-3.5 h-3.5" />
+                  </button>
                 )}
-                <ChevronRight size={16} style={{ opacity: 0.3 }} />
-              </Box>
-            </Box>
+                <ChevronRight className="w-4 h-4 text-neutral-300" />
+              </div>
+            </div>
           ))}
-        </Box>
-      </Card>
+        </div>
+      </div>
 
+      {/* Empty State */}
       {filteredSims.length === 0 && (
-        <Card variant="outlined" sx={{ p: 4, textAlign: 'center', mt: 2 }}>
-          <Sheet
-            variant="soft"
-            color="neutral"
-            sx={{
-              width: 48,
-              height: 48,
-              borderRadius: 'sm',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mx: 'auto',
-              mb: 1.5
-            }}
-          >
-            <Search size={24} />
-          </Sheet>
-          <Typography level="title-md" sx={{ mb: 0.5 }}>
-            No simulations found
-          </Typography>
-          <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
-            Try adjusting your search or filter criteria
-          </Typography>
-        </Card>
+        <div
+          className="bg-white rounded-lg border border-neutral-200 shadow-sm p-8 text-center mt-4"
+        >
+          <div className="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <Search className="w-6 h-6 text-neutral-700" />
+          </div>
+          <h3 className="text-neutral-900 mb-1">No simulations found</h3>
+          <p className="text-sm text-neutral-600">Try adjusting your search or filter criteria</p>
+        </div>
       )}
 
+      {/* Simulation Builder */}
       {showBuilder && (
         <SimulationBuilder
           editingSimulation={editingSimulation}
@@ -247,26 +216,17 @@ export function SimsLibrary({ userRole, onRunSimulation }: SimsLibraryProps) {
         />
       )}
 
+      {/* Add Simulation Button */}
       {userRole === 'admin' && (
-        <IconButton
+        <button
+          className="fixed bottom-8 right-8 w-12 h-12 rounded-full text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all"
+          style={{ backgroundColor: '#6082B6' }}
           onClick={() => setShowBuilder(true)}
-          size="lg"
-          sx={{ 
-            position: 'fixed',
-            bottom: 32,
-            right: 32,
-            bgcolor: '#6082B6',
-            color: 'white',
-            boxShadow: 'lg',
-            '&:hover': {
-              bgcolor: '#5070A0',
-              boxShadow: 'xl'
-            }
-          }}
+          title="Create new simulation"
         >
-          <Plus size={20} />
-        </IconButton>
+          <Plus className="w-5 h-5" />
+        </button>
       )}
-    </Box>
+    </div>
   );
 }
