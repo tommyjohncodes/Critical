@@ -35,10 +35,7 @@ export function Admin() {
           <p className="text-neutral-600">Manage users, track progress, and view organization-wide reports</p>
         </div>
         <button
-          className="px-6 py-3 text-white rounded-md shadow-sm transition-all flex items-center gap-2"
-          style={{ backgroundColor: '#6082B6' }}
-          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5070A0'}
-          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#6082B6'}
+          className="px-6 py-3 bg-neutral-900 text-white rounded-md shadow-sm hover:bg-neutral-800 transition-all flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
           Add User

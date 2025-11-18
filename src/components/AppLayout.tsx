@@ -42,7 +42,7 @@ export function AppLayout({ children, activePage, userRole, onNavigate, onLogout
       {/* Sidebar */}
       <aside
         className="w-64 border-r border-neutral-200 flex flex-col fixed h-screen z-40"
-        style={{ backgroundColor: '#E5E4E2' }}
+        style={{ backgroundColor: '#f5f4ec' }}
       >
         {/* Logo with Admin Badge */}
         <div className="p-6 border-b border-neutral-200">
